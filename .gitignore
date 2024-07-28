@@ -1,1 +1,14 @@
+.vscode
+Build
 Library
+Logs
+obj
+ProjectSettings
+Temp
+UserSettings
+
+Packages/packages-lock.json
+
+*.csproj
+*.sln
+*.meta

@@ -6,7 +6,8 @@ obj
 ProjectSettings
 Temp
 UserSettings
-
+Assembly-CSharp
+u3d-game.sln
 Packages/packages-lock.json
 
 *.csproj

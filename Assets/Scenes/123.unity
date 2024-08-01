@@ -264,7 +264,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movespeed: 5
+  heightSpeed: 2
   jumpHeight: 3
+  playerHeight: 0
   center: {fileID: 415157808}
   noFriction: {fileID: 13400000, guid: 8ef818bd51438bd4aa40226121d12691, type: 2}
   haveFriction: {fileID: 13400000, guid: 8fb59bd95efaa1b46a223674f89b0f03, type: 2}
@@ -896,7 +898,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267255059}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8ef818bd51438bd4aa40226121d12691, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1702,7 +1704,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movespeed: 5
+  heightSpeed: 5
   jumpHeight: 5
+  playerHeight: 0
   center: {fileID: 952519349}
   noFriction: {fileID: 13400000, guid: 8ef818bd51438bd4aa40226121d12691, type: 2}
   haveFriction: {fileID: 13400000, guid: 8fb59bd95efaa1b46a223674f89b0f03, type: 2}
@@ -2114,7 +2118,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movespeed: 5
+  heightSpeed: 5
   jumpHeight: 5
+  playerHeight: 0
   center: {fileID: 1060518661}
   noFriction: {fileID: 13400000, guid: 8ef818bd51438bd4aa40226121d12691, type: 2}
   haveFriction: {fileID: 13400000, guid: 8fb59bd95efaa1b46a223674f89b0f03, type: 2}
@@ -2755,7 +2761,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025015133}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8ef818bd51438bd4aa40226121d12691, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2862,7 +2868,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032483976}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8ef818bd51438bd4aa40226121d12691, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -3000,7 +3006,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movespeed: 5
+  heightSpeed: 5
   jumpHeight: 5
+  playerHeight: 0
   center: {fileID: 415157808}
   noFriction: {fileID: 13400000, guid: 8ef818bd51438bd4aa40226121d12691, type: 2}
   haveFriction: {fileID: 13400000, guid: 8fb59bd95efaa1b46a223674f89b0f03, type: 2}
@@ -4243,7 +4251,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737749570}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8ef818bd51438bd4aa40226121d12691, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4972,7 +4980,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134770712}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8ef818bd51438bd4aa40226121d12691, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

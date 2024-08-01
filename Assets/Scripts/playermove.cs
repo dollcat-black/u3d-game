@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor;
 //using UnityEditor.Search;
@@ -11,7 +12,11 @@ public class playermove : MonoBehaviour
     
 
 public float movespeed=5;
+
+public float heightSpeed=5;
 public float jumpHeight=5;
+
+public float playerHeight;
 public GameObject center;
 
 public PhysicMaterial noFriction;
@@ -132,19 +137,21 @@ if(jump1==0)
 
 */
  
-if(jump==1&&jump1==0)
-{
- 
- 
 
-        
-   
-   m_Animator.SetBool("Jump1", true);
-    Vector3 aaa=transform.up*jumpHeight;
-      transform.GetComponent<Rigidbody>().velocity=new Vector3(transform.GetComponent<Rigidbody>().velocity.x,aaa.y,transform.GetComponent<Rigidbody>().velocity.z);//将速度向量赋予刚体
-    
-    
+
+if(jump==1)
+{
+ m_Animator.SetBool("jump", true);
+ 
 }
+
+if(jump==0)
+{
+ m_Animator.SetBool("jump", false);
+ 
+}
+
+
 
  run=false;
    if(Input.GetKeyUp(KeyCode.W)&&!Input.GetKey(KeyCode.D)&&!Input.GetKey(KeyCode.A)&&!Input.GetKey(KeyCode.S))
@@ -302,12 +309,7 @@ if(Input.GetKey(KeyCode.LeftShift))
   
 
   
-if(jump1==1)
-  {
-    Vector3 aaa1=transform.forward*movespeed;//构建Z轴方向速度  向量*键盘输入数值及速度参数
-    aaa1.y=transform.GetComponent<Rigidbody>().velocity.y;//取消Y轴方向速度，防止影响重力控制
-    transform.GetComponent<Rigidbody>().velocity=aaa1;//将速度向量赋予刚体
-   }
+
    }
 
 
@@ -426,8 +428,21 @@ if(Input.GetKey(KeyCode.LeftShift))
             m_Animator.SetBool(Const.Moving, moving);
           m_Animator.SetFloat(Const.Speed, movespeed1);
         
-
+if(jump==1&&jump1==0)
+{
+ 
+   m_Animator.SetBool("Jump1", true);
+    Vector3 aaa=transform.up*(jumpHeight+runSpeed);
+      transform.GetComponent<Rigidbody>().velocity=new Vector3(transform.GetComponent<Rigidbody>().velocity.x,aaa.y,transform.GetComponent<Rigidbody>().velocity.z);//将速度向量赋予刚体
+     
+}
   
+  if(jump1==1)
+  {
+    Vector3 aaa1=transform.forward*(heightSpeed+runSpeed);//构建Z轴方向速度  向量*键盘输入数值及速度参数
+    aaa1.y=transform.GetComponent<Rigidbody>().velocity.y;//取消Y轴方向速度，防止影响重力控制
+    transform.GetComponent<Rigidbody>().velocity=aaa1;//将速度向量赋予刚体
+   }
     
 
 
@@ -842,16 +857,23 @@ float s3=(225-angle)/180;
    */
 
 //判断角色是否地面，切换物理摩擦材质
-
-    if(Physics.Raycast(transform.position,Vector3.down,0.05f))
+RaycastHit hit;
+    if(Physics.Raycast(transform.position,Vector3.down,out hit))
     {
+      playerHeight=Mathf.Abs(transform.position.y-hit.point.y);
+m_Animator.SetFloat("height", playerHeight);
+if(playerHeight>0.012)
+     {
+      playerHeight=math.clamp(playerHeight,0,2);
       GetComponent<Collider>().material=haveFriction;
-    jump1=0;
-    }
+      jump1=1;
+     }
     else
     {
       GetComponent<Collider>().material=noFriction;
-     jump1=1;
+        jump1=0;
+    }
+  
     }
 
     

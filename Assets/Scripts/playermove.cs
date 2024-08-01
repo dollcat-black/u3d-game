@@ -227,10 +227,13 @@ if(x1==0&&y1==0)
 {
 
 movespeed=0;
+heightSpeed=0;
 }
+
 
    if(x1!=0||y1!=0)
    {
+    heightSpeed=2;
 if(Input.GetKey(KeyCode.LeftShift))
     {
        movespeed=10;

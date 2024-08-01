@@ -87,6 +87,8 @@ public Vector2 arrow=Vector2.zero;
 
    public float camhitL=10;
 
+   public float runspeed;
+
 void Awake()
     {
         controls= new Playeraction();
@@ -149,8 +151,9 @@ void OnEnable()
           
         }
 
+runspeed=playerObject.GetComponent<playermove>().runSpeed;
 //镜头平滑
-if((Input.GetAxis("Mouse X")>0&&!Input.GetKey(KeyCode.E))||(x2>0&&lockb==0))
+if((Input.GetAxis("Mouse X")>0&&!Input.GetKey(KeyCode.E)&&runspeed>0)||(x2>0&&lockb==0&&runspeed>0))
 {
     z=z+50f*Time.deltaTime;
     t=t1;
@@ -170,7 +173,7 @@ if(Input.GetAxis("Mouse X")==0&&x2==0&&z>0)
     
 }
 
-if((Input.GetAxis("Mouse X")<0&&!Input.GetKey(KeyCode.E))||(x2<0&&lockb==0))
+if((Input.GetAxis("Mouse X")<0&&!Input.GetKey(KeyCode.E)&&runspeed>0)||(x2<0&&lockb==0&&runspeed>0))
 
 {
      z=z-50f*Time.deltaTime;

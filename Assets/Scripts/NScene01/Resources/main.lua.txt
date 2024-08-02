@@ -1,0 +1,11 @@
+GameObject = CS.UnityEngine.GameObject
+Camera = CS.UnityEngine.Camera
+Vector3 = CS.UnityEngine.Vector3
+Quaternion = CS.UnityEngine.Quaternion
+Time = CS.UnityEngine.Time
+PrimitiveType = CS.UnityEngine.PrimitiveType
+
+gameScene = GameObject.Find("GameScene")
+
+local sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform
+sphere.parent = gameScene.transform

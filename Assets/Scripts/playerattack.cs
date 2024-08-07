@@ -29,7 +29,17 @@ public class playerattack : MonoBehaviour
    public float a=-1;
       public float lockb=0;
 
+      public float attackanimation=0;
+
+      public float weapontype=0;
+
+      public GameObject weapon;
+
+      public bool weaponactive=true;
       public Vector3 shootFix=Vector3.zero;
+
+    
+
 
 void Awake()
     {
@@ -57,14 +67,52 @@ void OnEnable()
 
     void Start()
     {
-        
+        weapon=GameObject.Find("2Hand-Sword");
     }
 
     // Update is called once per frame
     void Update()
     {
+
+    if(Input.GetKeyUp(KeyCode.Q))
+    {
+     weapon.SetActive(weaponactive);
+     weaponactive=!weaponactive;
+    }
+
+if(weapon.activeSelf==true)
+{
+weapontype=1;
   
-      if(Input.GetMouseButton(0))
+     if(a==1)
+     {
+      attackanimation=1;
+      GetComponent<playermove>().x1=0;
+      GetComponent<playermove>().y1=0;
+     }
+
+     if(a==0)
+     {
+      attackanimation=0;
+  
+     }
+
+     if(GetComponent<playermove>().x1!=0||GetComponent<playermove>().y1!=0)
+     {
+     attackanimation=-5;
+
+     }
+}
+else
+{
+  attackanimation=-5;
+  weapontype=0;
+}
+
+     GetComponent<playermove>().m_Animator.SetFloat("Attack",attackanimation);
+     GetComponent<playermove>().m_Animator.SetFloat("weapontype",weapontype);
+
+     /* if(Input.GetMouseButton(0))
       {
         if(attackTime<0)
         {
@@ -88,6 +136,7 @@ void OnEnable()
         attackTime=attackTime-attackSpeed*Time.deltaTime;
       }
     }
+    */
     attackTime=attackTime-attackSpeed*Time.deltaTime;
     if(attackTime<=0)
     {

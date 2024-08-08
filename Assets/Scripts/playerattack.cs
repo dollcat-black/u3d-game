@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class playerattack : MonoBehaviour
@@ -36,6 +37,12 @@ public class playerattack : MonoBehaviour
       public GameObject weapon;
 
       public bool weaponactive=true;
+
+      public float weaponchange=0;
+
+      public GameObject weaponhand;
+
+      public GameObject weaponback;
       public Vector3 shootFix=Vector3.zero;
 
     
@@ -68,6 +75,14 @@ void OnEnable()
     void Start()
     {
         weapon=GameObject.Find("2Hand-Sword");
+        if(weapon.activeSelf==true)
+        {
+          weaponactive=false;
+        }
+        else
+        {
+          weaponactive=true;
+        }
     }
 
     // Update is called once per frame
@@ -76,13 +91,25 @@ void OnEnable()
 
     if(Input.GetKeyUp(KeyCode.Q))
     {
-     weapon.SetActive(weaponactive);
-     weaponactive=!weaponactive;
+    
+    if(weapon.activeSelf==true)
+    {
+     weaponchange=-1;
+    }
+    else
+    {
+      weaponchange=1;
+    }
     }
 
 if(weapon.activeSelf==true)
 {
-weapontype=1;
+  
+weapontype=weapontype+1f*Time.deltaTime;
+if(weapontype>1)
+{
+  weapontype=1;
+}
   
      if(a==1)
      {
@@ -106,9 +133,24 @@ weapontype=1;
 else
 {
   attackanimation=-5;
+  weapontype=weapontype-1f*Time.deltaTime;
+if(weapontype<0)
+{
   weapontype=0;
 }
+}
 
+if(weaponchange>0.1)
+{
+  weaponchange=weaponchange-1f*Time.deltaTime;
+}
+if(weaponchange<-0.1)
+{
+  weaponchange=weaponchange+1f*Time.deltaTime;
+}
+
+
+     GetComponent<playermove>().m_Animator.SetFloat("weaponchange",weaponchange);
      GetComponent<playermove>().m_Animator.SetFloat("Attack",attackanimation);
      GetComponent<playermove>().m_Animator.SetFloat("weapontype",weapontype);
 
@@ -176,7 +218,22 @@ else
 
 //github1  gitee222
 
+   }
+   public void backweapon(int i)
+   {
+     if(i==1)
+     {
+       weaponback.SetActive(false);
+       weapon.SetActive(true);
+       Debug.Log(1);
+     }
 
+      if(i==0)
+     {
+       weaponback.SetActive(true);
+       weapon.SetActive(false);
+        Debug.Log(2);
+     }
 
    }
 }

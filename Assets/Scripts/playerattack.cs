@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -43,7 +44,19 @@ public class playerattack : MonoBehaviour
       public GameObject weaponhand;
 
       public GameObject weaponback;
+
+      public float combo=0;
+
+      public float combocount=0;
+
+      public float attacktime=1f;
+
+      public float speed=1;
       public Vector3 shootFix=Vector3.zero;
+
+      public Vector3 aaa1;
+
+      public Vector3 bbb1;
 
     
 
@@ -83,11 +96,15 @@ void OnEnable()
         {
           weaponactive=true;
         }
+         
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+   
+    //bbb1=transform.GetComponent<Rigidbody>().velocity;
+  
 
     if(Input.GetKeyUp(KeyCode.Q))
     {
@@ -116,6 +133,23 @@ if(weapontype>1)
       attackanimation=1;
       GetComponent<playermove>().x1=0;
       GetComponent<playermove>().y1=0;
+      if(combo<=0)
+      {
+        combo=1;
+        attacktime=1f;
+      }
+
+      if(combo>0&&attacktime>0.1f)
+      {
+        combo=1.1f;
+        attacktime=1f;
+      }
+    
+
+
+
+
+
      }
 
      if(a==0)
@@ -149,11 +183,44 @@ if(weaponchange<-0.1)
   weaponchange=weaponchange+1f*Time.deltaTime;
 }
 
+combo=combo-1f*Time.deltaTime;
+if(combo<0)
+{
+  combo=0f;
+  combocount=0;
+}
+
+if(combo>0)
+{
+   
+  attacktime=attacktime-2f*Time.deltaTime;
+ 
+}
+
 
      GetComponent<playermove>().m_Animator.SetFloat("weaponchange",weaponchange);
      GetComponent<playermove>().m_Animator.SetFloat("Attack",attackanimation);
      GetComponent<playermove>().m_Animator.SetFloat("weapontype",weapontype);
-
+     GetComponent<playermove>().m_Animator.SetFloat("combo",combo);
+if(combocount>0)
+{
+  if(GetComponent<playermove>().x1>0||GetComponent<playermove>().y1>0)
+  {
+    speed=4;
+  }
+  else
+  {
+    speed=2;
+  }
+      Vector3 aaa2=transform.forward*speed;//构建Z轴方向速度  向量*键盘输入数值及速度参数
+    aaa2.y=transform.GetComponent<Rigidbody>().velocity.y;//取消Y轴方向速度，防止影响重力控制
+    transform.GetComponent<Rigidbody>().velocity=aaa2;
+}
+combocount=combocount-2f*Time.deltaTime;
+if(combocount<0)
+{
+  combocount=0;
+}
      /* if(Input.GetMouseButton(0))
       {
         if(attackTime<0)
@@ -189,7 +256,7 @@ if(weaponchange<-0.1)
 
    void Attack()
    {
-        if(attackTime<=0)
+        if(attackTime<=0&&weapon.activeSelf==false)
         {
             attackTime=1;
         po=center.GetComponent<Transform>().position+shootFix+center.GetComponent<Transform>().forward.normalized*2;
@@ -234,6 +301,19 @@ if(weaponchange<-0.1)
        weapon.SetActive(false);
         Debug.Log(2);
      }
+
+   }
+
+   public void combonumber(int k)
+   {
+     combocount=1f;
+   
+
+   }
+
+   public void combozero(int k)
+   {
+     combocount=k;
 
    }
 }

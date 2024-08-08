@@ -716,7 +716,8 @@ if(jk>0.1||jk<-0.1)
    
      if(hit.collider.name!="camPo")
      {
-       
+      if(hit.collider.name!="2Hand-Sword")
+       {
     hitpos=hit.point;
       Vector3 po=center.GetComponent<Transform>().position+hfix-hit.point;
       Vector3 pon=po.normalized;
@@ -727,7 +728,7 @@ float l=distant.magnitude;
 if(l>l2&&l>1.5f){
 distant=distant.normalized;
     transform.position=transform.position+distant*2*(l-l2)*Time.deltaTime;}
- 
+       }
 
 
         }

@@ -1,31 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using XLua;
 
-public class main : MonoBehaviour
+namespace NScene01
 {
-    LuaEnv luaenv = null;
-    
-    void Start()
+    public class Main : MonoBehaviour
     {
-        luaenv = new LuaEnv();
-        luaenv.DoString("require'main'");
-    }
-
-    void Update()
-    {
-        if (luaenv != null)
+        LuaEnv luaenv = null;
+        
+        private string luaDir = getStreamingAssetsPath() + "/lua";
+        private string sceneName = "NScene01";
+        private string separator = "/";
+        public static string getStreamingAssetsPath()
         {
-            luaenv.Tick();
+            return Application.streamingAssetsPath;
         }
-    }
-    
-    void Destroy()
-    {
-        if (luaenv != null)
+        public string getStreamingAssetsPathI()
         {
-            luaenv.Dispose();
+            return Application.streamingAssetsPath;
+        }
+        
+        private byte[] CustomLoader(ref string filepath)
+        {
+            string path = luaDir + separator + sceneName + separator + filepath + ".lua";
+            if (File.Exists(path))
+            {
+                return File.ReadAllBytes(path);
+            }
+            else
+            {
+                Debug.LogError("File is Non-existent!");
+                return null;
+            }
+        }
+        
+        void Start()
+        {
+            luaenv = new LuaEnv();
+            luaenv.AddLoader(CustomLoader);
+            luaenv.DoString("require'main'"); //控制转接Lua逻辑
+        }
+
+        void Update()
+        {
+            if (luaenv != null)
+            {
+                luaenv.Tick();
+            }
+        }
+        
+        void Destroy()
+        {
+            if (luaenv != null)
+            {
+                luaenv.Dispose();
+            }
         }
     }
 }

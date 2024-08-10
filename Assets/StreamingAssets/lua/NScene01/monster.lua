@@ -3,9 +3,7 @@ local player = mainScene.transform:Find('Player')
 local monster = mainScene.transform:Find('小怪物')
 
 player = utils.GameObject:Init(player)
--- player:SetParent(mainScene,true)
--- player:SetParent(monster,true) --ok
--- player:SetParent(monster) --ok
+player:SetParent(mainScene)
 monster = utils.GameObject:Init(monster)
 monster:AddComponent(typeof(LuaMonoMgr),true)
 local builtin_standard_material = Material(Shader.Find("Standard"))

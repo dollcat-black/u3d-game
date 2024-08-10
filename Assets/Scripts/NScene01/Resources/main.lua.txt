@@ -6,7 +6,7 @@ Quaternion = CS.UnityEngine.Quaternion
 Time = CS.UnityEngine.Time
 PrimitiveType = CS.UnityEngine.PrimitiveType
 
-gameScene = GameObject.Find("GameScene")
+mainScene = GameObject.Find("MainScene")
 
 local sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform
-sphere.parent = gameScene.transform
+sphere.parent = mainScene.transform

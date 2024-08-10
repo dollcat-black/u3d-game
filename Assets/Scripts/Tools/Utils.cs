@@ -111,16 +111,6 @@ namespace Common
             loadCache.Clear();
         }
 
-        public static async Task<int> SimpleAsync(int param)
-        {
-            int res = await Task.Run(() =>
-            {
-                Thread.Sleep(6000);
-                return param * 9;
-            });
-            return res;
-        }
-
         #region Common Utils
 
         #region MD5

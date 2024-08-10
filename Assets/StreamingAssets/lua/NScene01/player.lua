@@ -9,28 +9,37 @@ local builtin_standard_material = Material(Shader.Find("Standard"))
 builtin_standard_material.color = Color(0.5,0.1,0.1)
 player:GetComponent(typeof(Renderer)).material = builtin_standard_material
 
-local moveSpeed = player:SetProperties('moveSpeed',50)
+local moveSpeed = player:SetProperties('moveSpeed',80)
 local moveSpeedRate = player:SetProperties('moveSpeedRate',0.001)
-local jumpHeight = player:SetProperties('jumpHeight',300)
 local jumpRate = player:SetProperties('jumpRate',0.1)
 local jumpForce = player:SetProperties('jumpForce',60)
 
 local playerRb = player:GetComponent(typeof(Rigidbody))
 
--- function player.Start()
---     print(player.target.name..' start.')
--- end
-
 player:AddOrRemoveListener(function()
     print(player.target.name..' start.')
 end,E_LifeFun_Type.Start)
 
-function player:MoveByAxis()
+local direcVctr = Vector3.zero
+function player:MoveByAxis(isInFixedUpdate) --w、a、s、d前后左右移动
+    isInFixedUpdate = isInFixedUpdate or false
+    local isHorDown = self:GetProperties('isHorDown')
+    local isVerDown = self:GetProperties('isVerDown')
+    if isInFixedUpdate then
+        local isGrounded = self:GetProperties('isGrounded')
+        if isHorDown or isVerDown then
+            if isGrounded then
+                self.transform.position = self.transform.position + direcVctr.normalized * moveSpeed * moveSpeedRate
+            else
+                self.transform.position = Vector3.Lerp(self.transform.position,self.transform.position + direcVctr.normalized * moveSpeed * moveSpeedRate * 0.7,0.5) --跳跃时水平移动速度削弱
+            end
+        end
+        direcVctr = Vector3.zero
+        return
+    end
     local axisHor = Input.GetAxis('Horizontal')
     local axisVer = Input.GetAxis('Vertical')
-    local isHorDown = self:GetProperties('isHorDown')
     local isBothHorDown = self:GetProperties('isBothHorDown')
-    local isVerDown = self:GetProperties('isVerDown')
     local isBothVerDown = self:GetProperties('isBothVerDown')
     if Input.GetButtonDown('Horizontal') then
         if isHorDown then --已经按下了至少一个
@@ -48,7 +57,6 @@ function player:MoveByAxis()
             isHorDown = self:SetProperties('isHorDown',false)
         end
     end
-    local direcVctr = Vector3.zero
     if isHorDown then
         if not isBothHorDown then
             if axisHor < 0 then --左
@@ -80,26 +88,23 @@ function player:MoveByAxis()
             end
         end
     end
-    if isHorDown or isVerDown then
-        self.transform.position = Vector3.Lerp(self.transform.position,self.transform.position + direcVctr.normalized * moveSpeed * moveSpeedRate,0.5)
-    end
 end
 
 local lastVelocity = 0
-function player:Jump()
+function player:Jump() --跳跃
     local jump = Input.GetAxis('Jump')
     local isGrounded = self:GetProperties('isGrounded')
     local currentVelocity = playerRb.velocity.y
     local acceleration = (currentVelocity - lastVelocity) / Time.fixedDeltaTime
     lastVelocity = currentVelocity
     local absAcc = math.abs(acceleration)
-    if absAcc > 0 then
+    if absAcc > 1 then
         isGrounded = self:SetProperties('isGrounded',false)
     else
         isGrounded = self:SetProperties('isGrounded',true)
     end
     if isGrounded then
-        playerRb.velocity.y = -2
+        playerRb.velocity.y = 0
     end
     if jump > 0 and isGrounded then
         playerRb:AddForce(Vector3.up * jumpForce * jumpRate,ForceMode.VelocityChange)
@@ -108,28 +113,33 @@ function player:Jump()
 end
 
 local mainCameraOffsetWithPlayer = mainCamera.transform.position - player.target.transform.position
-function player:CameraWith()
-    -- mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position,player.target.transform.position + mainCameraOffsetWithPlayer,0.2)
-    mainCamera.transform.position = player.target.transform.position + mainCameraOffsetWithPlayer
+function player:CameraWith() --镜头跟随
+    mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position,player.target.transform.position + mainCameraOffsetWithPlayer,0.9)
 end
 
 function player:Update()
-    if updateCount % 300 == 0 then
+    if updateCount % 300 == 0 then --帧计数器
         updateCount = 0
     end
     updateCount = updateCount + 1
     self:MoveByAxis()
-    if updateCount % 10 == 0 then
-        self:Jump()
-    end
-    -- if updateCount % 3 == 0 then
-    -- end
-    self:CameraWith()
-    -- local moux = Input.GetAxis('Mouse X');
-    -- local mouy = Input.GetAxis('Mouse Y');
 end
-
 player:AddOrRemoveListener(function()
     player:Update()
 end,E_LifeFun_Type.Update)
+
+function player:FixedUpdate()
+    self:MoveByAxis(true)
+    self:Jump()
+end
+player:AddOrRemoveListener(function()
+    player:FixedUpdate()
+end,E_LifeFun_Type.FixedUpdate)
+
+function player:LateUpdate()
+    self:CameraWith()
+end
+player:AddOrRemoveListener(function()
+    player:LateUpdate()
+end,E_LifeFun_Type.LateUpdate)
 

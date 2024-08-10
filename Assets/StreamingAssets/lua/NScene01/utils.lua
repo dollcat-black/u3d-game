@@ -1,4 +1,3 @@
-local socket = require("socket")
 local utils = {}
 
 utils.testRegionEffectiveness = function()
@@ -76,17 +75,6 @@ function utils.GameObject:Init(target)
     _self:Init(target)
     return _self
 end
-
---[[
------------------------------------------- test start
--- function loadedCbk(task)
---     --___dbg.breakHere()
---     local resValue = task.Result
---     print(resValue)
--- end
--- Utils.SimpleAsync(7):ContinueWith(loadedCbk)
------------------------------------------- test end
-]]--
 
 --计算两点在xz平面投影距离
 utils.calcDistanceXZ = function(posA,posB)

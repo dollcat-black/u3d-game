@@ -1,7 +1,3 @@
--- package.cpath = package.cpath .. ';C:/Users/Digs/AppData/Roaming/JetBrains/Rider2021.2/plugins/EmmyLua/debugger/emmy/windows/x64/?.dll'
--- ___dbg = require('emmy_core')
--- ___dbg.tcpConnect('localhost', 9966)
-
 UnityEngine = CS.UnityEngine
 Application = UnityEngine.Application
 GameObject = UnityEngine.GameObject

@@ -13,7 +13,6 @@ preLoad.LoadRes = function ()
         if lastSlash then
             resName = resName:sub(lastSlash + 1)
         end
-        
         if prefab == nil then
             print('res loaded fail')
         end

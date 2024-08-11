@@ -187,7 +187,7 @@ combo=combo-1f*Time.deltaTime;
 if(combo<0)
 {
   combo=0f;
-  combocount=0;
+  //combocount=0;
 }
 
 if(combo>0)
@@ -204,7 +204,7 @@ if(combo>0)
      GetComponent<playermove>().m_Animator.SetFloat("combo",combo);
 if(combocount>0)
 {
-  if(GetComponent<playermove>().x1>0||GetComponent<playermove>().y1>0)
+  if(GetComponent<playermove>().x1!=0||GetComponent<playermove>().y1!=0)
   {
     speed=4;
   }
@@ -315,5 +315,17 @@ if(combocount<0)
    {
      combocount=k;
 
+   }
+
+   public void ChangeRollCollider(int K)
+   {
+     GetComponent<CapsuleCollider>().enabled=false;
+     GetComponent<BoxCollider>().enabled=true;
+   }
+
+   public void ChangeNormalCollider(int K)
+   {
+     GetComponent<CapsuleCollider>().enabled=true;
+     GetComponent<BoxCollider>().enabled=false;
    }
 }

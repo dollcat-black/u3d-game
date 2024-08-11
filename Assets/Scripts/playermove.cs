@@ -430,6 +430,7 @@ if(Input.GetKey(KeyCode.LeftShift))
         movespeed1=inputSpeed+runSpeed;
             m_Animator.SetBool(Const.Moving, moving);
           m_Animator.SetFloat(Const.Speed, movespeed1);
+            m_Animator.SetFloat("run", run1);
         
 if(jump==1&&jump1==0)
 {

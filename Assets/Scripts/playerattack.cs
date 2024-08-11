@@ -292,14 +292,14 @@ if(combocount<0)
      {
        weaponback.SetActive(false);
        weapon.SetActive(true);
-       Debug.Log(1);
+       //Debug.Log(1);
      }
 
       if(i==0)
      {
        weaponback.SetActive(true);
        weapon.SetActive(false);
-        Debug.Log(2);
+        //Debug.Log(2);
      }
 
    }

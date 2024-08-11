@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 8a7b78e82902d1b4eba2923c6a4cf1c7
-timeCreated: 1485507585
+guid: 9b8801d8aa383584b8c3f62346c33539
+timeCreated: 1463392261
 licenseType: Store
 ModelImporter:
   serializedVersion: 18
@@ -309,10 +309,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 65284
-  packageName: RPG Character Mecanim Animation Pack FREE
-  packageVersion: 2.5.2
-  assetPath: Assets/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Models/Weapons/2Hand-Sword.FBX
-  uploadId: 586175

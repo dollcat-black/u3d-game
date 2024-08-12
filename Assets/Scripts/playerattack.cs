@@ -326,6 +326,6 @@ if(combocount<0)
    public void ChangeNormalCollider(int K)
    {
      GetComponent<CapsuleCollider>().enabled=true;
-     GetComponent<BoxCollider>().enabled=false;
+    GetComponent<BoxCollider>().enabled=false;
    }
 }

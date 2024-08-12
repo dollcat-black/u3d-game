@@ -766,7 +766,7 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
-    motionNodeName: Motion
+    motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -809,26 +809,19 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.108545035
-        functionName: FootL
+      - time: 0.030959751
+        functionName: ChangeRollCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 1
         messageOptions: 0
-      - time: 0.63510394
-        functionName: FootR
+      - time: 0.12693499
+        functionName: combonumber
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.6420323
-        functionName: FootL
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
+        intParameter: 1
         messageOptions: 0
       transformMask: []
       maskType: 3
@@ -848,10 +841,10 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -859,7 +852,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.035856575
+      - time: 0.027863776
         functionName: combonumber
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -873,12 +866,12 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.8446215
+      - time: 0.85081345
         functionName: ChangeNormalCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3
@@ -1423,7 +1416,7 @@ ModelImporter:
       scale: {x: 1, y: 0.9999999, z: 0.99999976}
     - name: B_L_UpperArm
       parentName: B_L_Clavicle
-      position: {x: -27.203571, y: 0.0000019073486, z: 0}
+      position: {x: -27.203571, y: 0.0000019073486, z: 0.026262663}
       rotation: {x: 0.00039588264, y: 0.000030210404, z: 0.00022920946, w: 0.9999999}
       scale: {x: 0.9999999, y: 0.9999997, z: 1.0000002}
     - name: B_L_Forearm
@@ -1443,7 +1436,7 @@ ModelImporter:
       scale: {x: 1.0000001, y: 0.9999999, z: 1.0000004}
     - name: B_L_Finger11
       parentName: B_L_Finger1
-      position: {x: -5.4388733, y: 0, z: 0.000015258789}
+      position: {x: -5.4388733, y: -0.00000030517577, z: 0.000015258789}
       rotation: {x: 0.00000007077848, y: -0.00000023096804, z: -0.000006350688, w: 1}
       scale: {x: 0.9999999, y: 0.9999998, z: 1}
     - name: B_L_Finger12
@@ -1473,12 +1466,12 @@ ModelImporter:
       scale: {x: 1, y: 0.9999999, z: 1.0000005}
     - name: B_L_Finger21
       parentName: B_L_Finger2
-      position: {x: -6.345321, y: 0.00000166893, z: 0}
+      position: {x: -6.345321, y: 0.00000166893, z: 0.0000000011920929}
       rotation: {x: 0.000000022352085, y: -0.0000002831218, z: -0.0000063739717, w: 1}
       scale: {x: 1.0000006, y: 1.0000001, z: 0.9999997}
     - name: B_L_Finger22
       parentName: B_L_Finger21
-      position: {x: -6.3453293, y: 0.000015258789, z: 0}
+      position: {x: -6.3453293, y: 0.000015258789, z: 0.00000015258789}
       rotation: {x: 0.000000014901155, y: 0.0000000074505544, z: 0.000000022351744, w: 1}
       scale: {x: 0.99999976, y: 1, z: 1.0000001}
     - name: B_L_Finger3
@@ -1488,12 +1481,12 @@ ModelImporter:
       scale: {x: 1, y: 0.9999998, z: 1.0000005}
     - name: B_L_Finger31
       parentName: B_L_Finger3
-      position: {x: -5.4388804, y: 0.000015854836, z: 0}
+      position: {x: -5.4388804, y: 0.000015854836, z: 0.000011291504}
       rotation: {x: -0.00000013411012, y: -0.00000028125106, z: -0.000006250572, w: 1}
       scale: {x: 1.0000001, y: 0.9999998, z: 1.0000002}
     - name: B_L_Finger32
       parentName: B_L_Finger31
-      position: {x: -5.4388504, y: 0.000019311905, z: 0}
+      position: {x: -5.4388504, y: 0.000019311905, z: 0.00000045776366}
       rotation: {x: -0.00000026635837, y: 0.00000006332987, z: 0.000000031083015, w: 1}
       scale: {x: 1, y: 0.9999998, z: 1.0000001}
     - name: B_L_Finger4
@@ -1558,7 +1551,7 @@ ModelImporter:
       scale: {x: 1.0000001, y: 0.9999998, z: 1}
     - name: B_R_Finger12
       parentName: B_R_Finger11
-      position: {x: -5.438843, y: 0.00000047683716, z: 0}
+      position: {x: -5.438843, y: 0.00000047683716, z: 0.00000015258789}
       rotation: {x: -0.000000020489132, y: -0.00000011920919, z: -0.00000002095497, w: 1}
       scale: {x: 1.0000001, y: 1.0000001, z: 0.99999976}
     - name: B_R_Finger2
@@ -1603,7 +1596,7 @@ ModelImporter:
       scale: {x: 1.0000005, y: 0.9999999, z: 1.0000005}
     - name: B_R_Finger42
       parentName: B_R_Finger41
-      position: {x: -4.5324173, y: 0, z: 0.000016212463}
+      position: {x: -4.5324173, y: 0.24254322, z: 0.000016212463}
       rotation: {x: -0.7071068, y: -0.000000011854597, z: 0.000000118536924, w: 0.7071067}
       scale: {x: 0.9999999, y: 0.99999964, z: 1.0000001}
     - name: B_R_Thigh
@@ -1626,18 +1619,18 @@ ModelImporter:
       position: {x: -14.912968, y: 24.276678, z: 0.26480293}
       rotation: {x: 0.00000001651056, y: -0.000000059070373, z: -0.7132062, w: 0.7009543}
       scale: {x: 1, y: 1.0000001, z: 1}
-    armTwist: 1
-    foreArmTwist: 1
-    upperLegTwist: 1
-    legTwist: 1
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
     armStretch: 0.05
-    legStretch: 0
+    legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: Motion
+    rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 1
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e57e9b8cd5e115f4f8d7736473e5c7fd, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3

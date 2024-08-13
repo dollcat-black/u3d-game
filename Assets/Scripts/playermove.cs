@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -60,6 +62,16 @@ public float run1=0;
    public float runSpeed;
 
    public float movespeed1;
+
+   public float catchwall=0;
+
+   public float hangingnumber=0;
+
+   public Vector3 angle1;
+   public float angele2;
+
+
+   public float lenth=0.2f;
 void Awake()
     {
         controls= new Playeraction();
@@ -151,6 +163,39 @@ if(jump==0)
  
 }
 
+if(x1>0)
+{
+ hangingnumber=hangingnumber+2f*Time.deltaTime;
+ if(hangingnumber>1f)
+ {
+  hangingnumber=1f;
+ }
+}
+
+if(x1<0)
+{
+ hangingnumber=hangingnumber-2f*Time.deltaTime;
+  if(hangingnumber<-1f)
+ {
+  hangingnumber=-1f;
+ }
+}
+
+if(x1==0)
+{
+ if(hangingnumber>0.01)
+{
+ hangingnumber=hangingnumber-2f*Time.deltaTime;
+}
+
+if(hangingnumber<-0.01)
+{
+ hangingnumber=hangingnumber+2f*Time.deltaTime;
+}
+}
+
+
+ m_Animator.SetFloat("hanging", hangingnumber);
 
 
  run=false;
@@ -439,15 +484,16 @@ if(jump==1&&jump1==0)
     Vector3 aaa=transform.up*(jumpHeight+runSpeed);
       transform.GetComponent<Rigidbody>().velocity=new Vector3(transform.GetComponent<Rigidbody>().velocity.x,aaa.y,transform.GetComponent<Rigidbody>().velocity.z);//将速度向量赋予刚体
      
+
 }
   
-  if(jump1==1)
+  if(jump1==1&&catchwall==0f)
   {
     Vector3 aaa1=transform.forward*(heightSpeed+runSpeed);//构建Z轴方向速度  向量*键盘输入数值及速度参数
     aaa1.y=transform.GetComponent<Rigidbody>().velocity.y;//取消Y轴方向速度，防止影响重力控制
     transform.GetComponent<Rigidbody>().velocity=aaa1;//将速度向量赋予刚体
    }
-    
+ 
 
 
 a=GetComponent<Transform>().eulerAngles.y;
@@ -472,7 +518,8 @@ if(b<0)
     angle=360-b+a;
   }
 
-  
+if(catchwall==0)
+{
 if(y1>0&&x1==0)
    {
     float s1=angle/180;
@@ -663,7 +710,7 @@ float s3=(225-angle)/180;
 
 
     }
-
+}
 
 /*
   
@@ -879,10 +926,81 @@ if(playerHeight>0.012)
     }
   
     }
+    else
+    {
+      playerHeight=2f;
+      GetComponent<Collider>().material=haveFriction;
+      jump1=1;
+      m_Animator.SetFloat("height", playerHeight);
+    }
+
+
+    RaycastHit hit1;
+    if(Physics.Raycast(transform.position+new Vector3(0,1,0),transform.forward,out hit1,2f)&&run1>0f)
+    {
+      
+      lenth=(transform.position+new Vector3(0,1,0)-hit1.point).magnitude;
+      if(hit1.collider.name!="PlayerObject"&&lenth<0.2f)
+      {catchwall=1f;
+      angle1=hit1.normal;
+      angle1.y=0;
+      angle1=-angle1;
+      angele2=Vector3.SignedAngle(transform.forward,angle1,Vector3.up);
+       if(angele2>0.01||angele2<-0.01){
+     transform.Rotate(0,angele2*10*Time.deltaTime,0);
+
+if(lenth>0.18f)
+{
+  transform.position=transform.position+transform.forward*Time.deltaTime;
+
+}
+
+
+
+    }
+      //Debug.Log(1);
+    }
+    else
+    {
+     
+       catchwall=0f;
+      
+    }
+
+
+    }
+    else
+    {
+    catchwall=0f;
+  
+    }
+
+
+
+
+m_Animator.SetFloat("catch",catchwall);
+
 
     
 
 //jd=Vector3.SignedAngle(transform.forward,center.GetComponent<Transform>().forward,Vector3.up);
 
 }
+
+public void catchwall1(float k)
+{
+
+ transform.GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);
+   GetComponent<Rigidbody>().useGravity=false;
+ 
+}
+
+public void nocatchwall1(float k)
+{
+
+GetComponent<Rigidbody>().useGravity=true;
+
+
+}
+
 }

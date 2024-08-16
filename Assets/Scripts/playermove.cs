@@ -45,7 +45,9 @@ private Playeraction controls;
    public float jump1=0;
 
 public float run1=0;
-  
+
+public float roll;
+  public float roll1;
 
    public float d=0;
 
@@ -65,19 +67,39 @@ public float run1=0;
 
    public float catchwall=0;
 
-   public float hangingnumber=0;
+   public float hangingX=0;
+   public float hangingY=0;
 
    public Vector3 angle1;
    public float angele2;
 
-
    public float lenth=0.2f;
+
+   public float turnangle=0;
+
+   public float canturn=1;
+
+   public float landspeed;
+   public float Ldown=1;
+
+   public float Lup;
+
+   public float text=0;
+
+   public float LD;
+
+   public float canClime;
+
+
 void Awake()
     {
         controls= new Playeraction();
        // controls.GamePlay.Attack.performed += ctx =>Attack();
         controls.GamePlay.Jump.performed += ctx =>jump=ctx.ReadValue<float>();
         controls.GamePlay.Jump.canceled += ctx =>jump=0;
+
+    controls.GamePlay.roll.performed += ctx =>roll=ctx.ReadValue<float>();
+        controls.GamePlay.roll.canceled += ctx =>roll=0;
 
 controls.GamePlay.run.performed += ctx =>run1=ctx.ReadValue<float>();
         controls.GamePlay.run.canceled += ctx =>run1=0;
@@ -105,7 +127,7 @@ void OnEnable()
 
     void Start()
     {
-        
+        canturn=1;
     }
 
    
@@ -165,37 +187,69 @@ if(jump==0)
 
 if(x1>0)
 {
- hangingnumber=hangingnumber+2f*Time.deltaTime;
- if(hangingnumber>1f)
+ hangingX=hangingX+2f*Time.deltaTime;
+ if(hangingX>1f)
  {
-  hangingnumber=1f;
+  hangingX=1f;
  }
 }
 
 if(x1<0)
 {
- hangingnumber=hangingnumber-2f*Time.deltaTime;
-  if(hangingnumber<-1f)
+ hangingX=hangingX-2f*Time.deltaTime;
+  if(hangingX<-1f)
  {
-  hangingnumber=-1f;
+  hangingX=-1f;
  }
 }
 
 if(x1==0)
 {
- if(hangingnumber>0.01)
+ if(hangingX>0.01)
 {
- hangingnumber=hangingnumber-2f*Time.deltaTime;
+ hangingX=hangingX-2f*Time.deltaTime;
 }
 
-if(hangingnumber<-0.01)
+if(hangingX<-0.01)
 {
- hangingnumber=hangingnumber+2f*Time.deltaTime;
+ hangingX=hangingX+2f*Time.deltaTime;
 }
 }
 
 
- m_Animator.SetFloat("hanging", hangingnumber);
+if(y1>0)
+{
+ hangingY=hangingY+2f*Time.deltaTime;
+ if(hangingY>1f)
+ {
+  hangingY=1f;
+ }
+}
+
+if(y1<0)
+{
+ hangingY=hangingY-2f*Time.deltaTime;
+  if(hangingY<-1f)
+ {
+  hangingY=-1f;
+ }
+}
+
+if(y1==0)
+{
+ if(hangingY>0.01)
+{
+ hangingY=hangingY-2f*Time.deltaTime;
+}
+
+if(hangingY<-0.01)
+{
+ hangingY=hangingY+2f*Time.deltaTime;
+}
+}
+
+ m_Animator.SetFloat("hangingX", hangingX);
+  m_Animator.SetFloat("hangingY", hangingY);
 
 
  run=false;
@@ -518,6 +572,8 @@ if(b<0)
     angle=360-b+a;
   }
 
+//turnangle=0;
+
 if(catchwall==0)
 {
 if(y1>0&&x1==0)
@@ -526,12 +582,20 @@ if(y1>0&&x1==0)
 float s2=(360-angle)/180;
      if(angle>0.001&&angle<=180)
      {
+      turnangle=-1;
+      if(canturn==1)
+      {
      transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
+      }
      }
 
     if(angle>180&&angle<359.999)
      {
+      turnangle=1;
+      if(canturn==1)
+      {
       transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
+      }
      }
     
     }
@@ -543,12 +607,22 @@ if(y1<0&&x1==0)
 float s2=1-(360-angle)/180;
      if(angle>=0&&angle<179.999)
      {
+      turnangle=1;
+     if(canturn==1)
+      {
      transform.Rotate(0,rotateSpeed*s1*Time.deltaTime,0);
+      }
+     
      }
    
     if(angle>180.001&&angle<360)
      {
+      turnangle=-1;
+       if(canturn==1)
+      {
       transform.Rotate(0,-rotateSpeed*s2*Time.deltaTime,0);
+      }
+      
      }
 
 
@@ -562,17 +636,30 @@ float s2=(angle+90)/180;
 float s3=(270-angle)/180;
      if(angle>=270.001&&angle<360)
      {
+         turnangle=-1;
+       if(canturn==1)
+      {
      transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
+      }
+     turnangle=-1;
      }
 
      if(angle>=0&&angle<=90)
      {
+         turnangle=-1;
+       if(canturn==1)
+      {
      transform.Rotate(0,-rotateSpeed*s2*Time.deltaTime,0);
+      }
      }
    
     if(angle>90&&angle<269.999)
      {
+         turnangle=1;
+       if(canturn==1)
+      {
       transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
+      }
      }
 
 
@@ -586,24 +673,29 @@ float s2=(450-angle)/180;
 float s3=(90-angle)/180;
      if(angle>=90.001&&angle<270)
      {
-    
+         turnangle=-1;
+     if(canturn==1)
+      {
       transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
-    
-      
-     
+      }
      }
 
      if(angle>=270&&angle<360)
      {
+         turnangle=1;
+       if(canturn==1)
+      {
      transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
+      }
      }
    
     if(angle>=0&&angle<89.999)
      {
-      
-      
-    
+         turnangle=1;
+     if(canturn==1)
+      {
       transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
+      }
     
      }
 
@@ -936,11 +1028,11 @@ if(playerHeight>0.012)
 
 
     RaycastHit hit1;
-    if(Physics.Raycast(transform.position+new Vector3(0,1,0),transform.forward,out hit1,2f)&&run1>0f)
+    if(Physics.Raycast(transform.position+new Vector3(0,0.8f,0),transform.forward,out hit1,1f)&&run1>0f)
     {
       
-      lenth=(transform.position+new Vector3(0,1,0)-hit1.point).magnitude;
-      if(hit1.collider.name!="PlayerObject"&&lenth<0.2f)
+      lenth=(transform.position+new Vector3(0,0.8f,0)-hit1.point).magnitude;
+      if(hit1.collider.name!="PlayerObject"&&lenth<0.3f)
       {catchwall=1f;
       angle1=hit1.normal;
       angle1.y=0;
@@ -975,10 +1067,33 @@ if(lenth>0.18f)
   
     }
 
+RaycastHit hit2;
+ if(Physics.Raycast(transform.position+new Vector3(0,1f,0)+transform.forward*0.25f,new Vector3(0,-1f,0),out hit2,0.5f))
+    {
+      canClime=1f;
+    LD=(transform.position+new Vector3(0,1f,0)+transform.forward*0.25f-hit2.point).magnitude;
+  
+    }
+    else{
+      canClime=0f;
+    }
+   
+   
+
+
+
+
+landspeed=transform.GetComponent<Rigidbody>().velocity.y;
 
 
 
 m_Animator.SetFloat("catch",catchwall);
+m_Animator.SetFloat("roll", roll);
+m_Animator.SetFloat("turnangle",turnangle);
+m_Animator.SetFloat("landspeed",landspeed);
+m_Animator.SetFloat("Ldown",Ldown);
+m_Animator.SetFloat("Lup",Lup);
+m_Animator.SetFloat("canClime",canClime);
 
 
     
@@ -1002,5 +1117,18 @@ GetComponent<Rigidbody>().useGravity=true;
 
 
 }
+
+public void turnmove(float K)
+{
+canturn=K;
+
+if(K==0)
+{
+Ldown=LD;
+}
+
+}
+
+
 
 }

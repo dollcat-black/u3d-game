@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "roll",
+                    "type": "Button",
+                    "id": "79f94076-cdaf-4720-bcbf-06da8a002f85",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -388,6 +397,17 @@
                     "processors": "",
                     "groups": "XboxGamepad",
                     "action": "run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5bc9c06c-d59f-4647-a4ce-b4ba16dd93be",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyBoard",
+                    "action": "roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

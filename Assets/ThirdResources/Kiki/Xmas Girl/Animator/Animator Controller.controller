@@ -895,7 +895,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: landspeed
-    m_EventTreshold: -10
+    m_EventTreshold: -8
   - m_ConditionMode: 4
     m_ConditionEvent: height
     m_EventTreshold: 0.5

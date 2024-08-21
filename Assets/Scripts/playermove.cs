@@ -541,7 +541,7 @@ if(jump==1&&jump1==0)
 
 }
   
-  if(jump1==1&&catchwall==0f)
+  if(jump1==1&&catchwall==0f&&canturn==1)
   {
     Vector3 aaa1=transform.forward*(heightSpeed+runSpeed);//构建Z轴方向速度  向量*键盘输入数值及速度参数
     aaa1.y=transform.GetComponent<Rigidbody>().velocity.y;//取消Y轴方向速度，防止影响重力控制
@@ -641,7 +641,6 @@ float s3=(270-angle)/180;
       {
      transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
       }
-     turnangle=-1;
      }
 
      if(angle>=0&&angle<=90)
@@ -715,19 +714,28 @@ float s2=(45+angle)/180;
 float s3=(315-angle)/180;
      if(angle>=315.001&&angle<360)
      {
+       turnangle=-1;
+       if(canturn==1)
+      {
      transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
      }
-
+     }
      if(angle>=0&&angle<135)
      {
+       turnangle=-1;
+       if(canturn==1)
+      {
      transform.Rotate(0,-rotateSpeed*s2*Time.deltaTime,0);
      }
-   
+     }
     if(angle>=135&&angle<314.999)
      {
+       turnangle=1;
+       if(canturn==1)
+      {
       transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
      }
-
+     }
 
     }
 
@@ -739,19 +747,28 @@ float s2=(405-angle)/180;
 float s3=(45-angle)/180;
      if(angle>=45.001&&angle<225)
      {
+       turnangle=-1;
+       if(canturn==1)
+      {
      transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
      }
-
+     }
      if(angle>=225&&angle<360)
      {
+       turnangle=1;
+       if(canturn==1)
+      {
      transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
      }
-   
+     }
     if(angle>=0&&angle<44.999)
      {
+       turnangle=1;
+       if(canturn==1)
+      {
       transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
      }
-
+     }
 
     }
 
@@ -763,19 +780,28 @@ float s2=(495-angle)/180;
 float s3=(135-angle)/180;
      if(angle>=135.001&&angle<315)
      {
+       turnangle=-1;
+       if(canturn==1)
+      {
      transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
      }
-
+     }
      if(angle>=315&&angle<360)
      {
+       turnangle=1;
+       if(canturn==1)
+      {
      transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
      }
-   
+     }
     if(angle>=0&&angle<134.999)
      {
+       turnangle=1;
+       if(canturn==1)
+      {
       transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
      }
-
+     }
 
     }
 
@@ -787,19 +813,28 @@ float s2=(135+angle)/180;
 float s3=(225-angle)/180;
      if(angle>=225.001&&angle<360)
      {
+       turnangle=-1;
+       if(canturn==1)
+      {
      transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
      }
-
+     }
      if(angle>=0&&angle<45)
      {
+       turnangle=-1;
+       if(canturn==1)
+      {
      transform.Rotate(0,-rotateSpeed*s2*Time.deltaTime,0);
      }
-   
+     }
     if(angle>=45&&angle<224.999)
      {
+       turnangle=1;
+       if(canturn==1)
+      {
       transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
      }
-
+     }
 
     }
 }
@@ -1068,13 +1103,23 @@ if(lenth>0.18f)
     }
 
 RaycastHit hit2;
- if(Physics.Raycast(transform.position+new Vector3(0,1f,0)+transform.forward*0.25f,new Vector3(0,-1f,0),out hit2,0.5f))
+ if(Physics.Raycast(transform.position+new Vector3(0,1f,0)+transform.forward*0.25f,new Vector3(0,-1f,0),out hit2,5f))
     {
-      canClime=1f;
+  
     LD=(transform.position+new Vector3(0,1f,0)+transform.forward*0.25f-hit2.point).magnitude;
   
+  if(LD<=0.5f)
+  {
+    canClime=1f;
+  }
+  else
+  {
+    
+    canClime=0f;
+  }
     }
     else{
+    
       canClime=0f;
     }
    
@@ -1092,8 +1137,10 @@ m_Animator.SetFloat("roll", roll);
 m_Animator.SetFloat("turnangle",turnangle);
 m_Animator.SetFloat("landspeed",landspeed);
 m_Animator.SetFloat("Ldown",Ldown);
+m_Animator.SetFloat("LD",LD);
 m_Animator.SetFloat("Lup",Lup);
 m_Animator.SetFloat("canClime",canClime);
+
 
 
     

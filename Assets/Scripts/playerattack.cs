@@ -58,6 +58,9 @@ public class playerattack : MonoBehaviour
 
       public Vector3 bbb1;
 
+      public float att=0;
+
+public GameObject weaponpartic;
     
 
 
@@ -96,7 +99,10 @@ void OnEnable()
         {
           weaponactive=true;
         }
-         
+
+      
+
+        
     }
 
     // Update is called once per frame
@@ -105,6 +111,32 @@ void OnEnable()
    
     //bbb1=transform.GetComponent<Rigidbody>().velocity;
   
+if(Input.GetKeyUp(KeyCode.G))
+        {
+          if(att==0)
+          {
+            att=1;
+          }
+          else
+          {
+            att=0;
+          }
+        }
+         
+      
+
+  if(att==0)
+        {
+          weaponpartic.GetComponent<ParticleSystem>().Stop();
+        }
+
+          if(att==1)
+        {
+          weaponpartic.GetComponent<ParticleSystem>().Play();
+        }
+
+
+
 
     if(Input.GetKeyUp(KeyCode.Q))
     {
@@ -328,4 +360,10 @@ if(combocount<0)
      GetComponent<CapsuleCollider>().enabled=true;
     GetComponent<BoxCollider>().enabled=false;
    }
+public void Changeweaponpartic(int K)
+   {
+     att=K;
+   }
+
+
 }

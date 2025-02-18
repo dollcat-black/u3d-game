@@ -90,7 +90,7 @@ public float roll;
 
    public float canClime;
 
-
+public float backwalk;
 void Awake()
     {
         controls= new Playeraction();
@@ -574,7 +574,47 @@ if(b<0)
 
 //turnangle=0;
 
-if(catchwall==0)
+if(y1<0&&x1==0)
+        {
+     if((angle>0&&angle<15)||(angle>345&&angle<360))
+     {
+        backwalk=1f;
+        }
+
+     if(backwalk==1f)
+      {  float s1=angle/180;
+float s2=(360-angle)/180;
+     if(angle>0.001&&angle<=180)
+     {
+      turnangle=-1;
+      if(canturn==1)
+      {
+     transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
+      }
+     }
+
+    if(angle>180&&angle<359.999)
+     {
+      turnangle=1;
+      if(canturn==1)
+      {
+      transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
+      }
+     }
+
+      }
+        }
+        else
+        {
+          backwalk=0;
+        }    
+    
+
+     m_Animator.SetFloat("backwalk", backwalk);
+
+
+
+if(catchwall==0&&backwalk==0)
 {
 if(y1>0&&x1==0)
    {
@@ -597,6 +637,9 @@ float s2=(360-angle)/180;
       transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
       }
      }
+
+
+     
     
     }
     

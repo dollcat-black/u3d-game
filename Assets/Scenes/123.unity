@@ -304,11 +304,13 @@ MonoBehaviour:
   LD: 0
   canClime: 0
   backwalk: 0
+  lockTrue: 0
   sprinting: 0
   sprintingTime: 0
   sprintingTimeSet: 0.3
   sprintingSpeed: 10
   sprintingTimeWait: 0.5
+  sprintingSound: 0
 --- !u!136 &30420723
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2134,11 +2136,13 @@ MonoBehaviour:
   LD: 0
   canClime: 0
   backwalk: 0
+  lockTrue: 0
   sprinting: 0
   sprintingTime: 0
   sprintingTimeSet: 1
   sprintingSpeed: 5
   sprintingTimeWait: 2
+  sprintingSound: 0
 --- !u!114 &580791905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2451,10 +2455,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   a:
   - {fileID: 8300000, guid: 268fbd4f7dd12774c8bfa6bbfba1796b, type: 3}
-  - {fileID: 8300000, guid: f0a2c943aaf23e643bc20bcb5fa41534, type: 3}
+  - {fileID: 8300000, guid: 22472cdd1f7860e47b3087a942d3971a, type: 3}
   b: 0.22
   c: 1.5
   d: 0
+  s: 0.1
   jiaoR: {fileID: 764107873}
   jiaoL: {fileID: 474465635}
   player: {fileID: 30420715}
@@ -2874,11 +2879,13 @@ MonoBehaviour:
   LD: 0
   canClime: 0
   backwalk: 0
+  lockTrue: 0
   sprinting: 0
   sprintingTime: 0
   sprintingTimeSet: 1
   sprintingSpeed: 5
   sprintingTimeWait: 2
+  sprintingSound: 0
 --- !u!114 &761459499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4189,11 +4196,13 @@ MonoBehaviour:
   LD: 0
   canClime: 0
   backwalk: 0
+  lockTrue: 0
   sprinting: 0
   sprintingTime: 0
   sprintingTimeSet: 1
   sprintingSpeed: 5
   sprintingTimeWait: 2
+  sprintingSound: 0
 --- !u!54 &1053611857
 Rigidbody:
   m_ObjectHideFlags: 0

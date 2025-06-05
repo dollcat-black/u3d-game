@@ -98,6 +98,11 @@ public float roll;
   public float sprintingTimeSet = 1f;
   public float sprintingSpeed = 5f;
   public float sprintingTimeWait = 2f;
+
+  public float sprintingSound = 0f;
+
+  public float crouch = 0f;
+  public float crouchisTrue = 0f;
 void Awake()
     {
         controls= new Playeraction();
@@ -649,9 +654,10 @@ if(b<0)
       sprintingTime = sprintingTime - 1 * Time.deltaTime;
     }
 
-    if (Input.GetKey(KeyCode.R) && sprintingTime <= -sprintingTimeWait)
+    if (Input.GetKey(KeyCode.R) && sprintingTime <= -sprintingTimeWait&&crouchisTrue==0f)
       {
         sprinting = 1f;
+      sprintingSound = 1f;
         sprintingTime = sprintingTimeSet;
       }
 
@@ -1223,13 +1229,39 @@ RaycastHit hit2;
     }
 
 
-   
+    if (Input.GetKeyDown(KeyCode.T)&&crouch==0f)
+    {
+      crouchisTrue = 1f;
+    }
+    
+    if (Input.GetKeyDown(KeyCode.T)&&crouch==1f)
+    {
+      crouchisTrue = 0f;
+    }
+
+    if (crouchisTrue > 0.1f)
+    {
+      crouch = crouch + 2 * Time.deltaTime;
+      if (crouch > 1)
+      {
+        crouch = 1;
+      }
+    }
+
+    if (crouchisTrue < 0.9f)
+    {
+      crouch = crouch - 2 * Time.deltaTime;
+      if (crouch < 0)
+      {
+        crouch = 0;
+      }
+    }
 
 
 
-landspeed =transform.GetComponent<Rigidbody>().velocity.y;
 
 
+    landspeed =transform.GetComponent<Rigidbody>().velocity.y;
 
 m_Animator.SetFloat("catch",catchwall);
 m_Animator.SetFloat("roll", roll);
@@ -1239,7 +1271,7 @@ m_Animator.SetFloat("Ldown",Ldown);
 m_Animator.SetFloat("LD",LD);
 m_Animator.SetFloat("Lup",Lup);
 m_Animator.SetFloat("canClime",canClime);
-
+m_Animator.SetFloat("crouch",crouch);
 
 
     

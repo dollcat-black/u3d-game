@@ -11,7 +11,7 @@ public class sounds : MonoBehaviour
      public float c=1f;
 
      public float d=1f;
-
+  public float s=1f;
 
     public GameObject jiaoR;
      public GameObject jiaoL;
@@ -61,6 +61,16 @@ public class sounds : MonoBehaviour
       GetComponent<AudioSource>().Play();
       GetComponent<AudioSource>().time = b;
     }
+
+    if (player.GetComponent<playermove>().sprintingSound==1f&&player.GetComponent<playermove>().catchwall==0&&player.GetComponent<playermove>().crouchisTrue==0f)
+    {
+      player.GetComponent<playermove>().sprintingSound = 0f;
+       GetComponent<AudioSource>().clip = a[1];
+      GetComponent<AudioSource>().Play();
+      GetComponent<AudioSource>().time=s;
+      Debug.Log(1);
+    }
+
 
     if (footsoundR.GetComponent<footsound>().footHeight < 0.07 && footsoundR.GetComponent<footsound>().a > 0.5)
     {

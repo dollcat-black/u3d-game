@@ -90,7 +90,14 @@ public float roll;
 
    public float canClime;
 
-public float backwalk;
+  public float backwalk;
+
+  public float lockTrue=0f;
+  public float sprinting;
+  public float sprintingTime=0;
+  public float sprintingTimeSet = 1f;
+  public float sprintingSpeed = 5f;
+  public float sprintingTimeWait = 2f;
 void Awake()
     {
         controls= new Playeraction();
@@ -572,315 +579,364 @@ if(b<0)
     angle=360-b+a;
   }
 
-//turnangle=0;
+    //turnangle=0;
 
-if(y1<0&&x1==0)
+    if (y1 < 0 && x1 == 0)
+    {
+      if ((angle > 0 && angle < 15) || (angle > 345 && angle < 360))
+      {
+        backwalk = 1f;
+      }
+
+      if (backwalk == 1f && lockTrue == 1f)
+      {
+        float s11 = angle / 180;
+        float s22 = (360 - angle) / 180;
+        if (angle > 0.001 && angle <= 180)
         {
-     if((angle>0&&angle<15)||(angle>345&&angle<360))
-     {
-        backwalk=1f;
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s11 * Time.deltaTime, 0);
+          }
         }
 
-     if(backwalk==1f)
-      {  float s1=angle/180;
-float s2=(360-angle)/180;
-     if(angle>0.001&&angle<=180)
-     {
-      turnangle=-1;
-      if(canturn==1)
-      {
-     transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
-      }
-     }
+        if (angle > 180 && angle < 359.999)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s22 * Time.deltaTime, 0);
+          }
+        }
 
-    if(angle>180&&angle<359.999)
-     {
-      turnangle=1;
-      if(canturn==1)
-      {
-      transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
       }
-     }
 
+      if (lockTrue == 0f)
+      {
+        float s1 = 1 - angle / 180;
+        float s2 = 1 - (360 - angle) / 180;
+        if (angle >= 0 && angle < 179.999)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s1 * Time.deltaTime, 0);
+          }
+        }
+
+        if (angle > 180.001 && angle < 360)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s2 * Time.deltaTime, 0);
+          }
+        }
       }
         }
-        else
-        {
-          backwalk=0;
-        }    
+      else
+      {
+        backwalk = 0;
+      }    
     
 
      m_Animator.SetFloat("backwalk", backwalk);
 
-
-
-if(catchwall==0&&backwalk==0)
-{
-if(y1>0&&x1==0)
-   {
-    float s1=angle/180;
-float s2=(360-angle)/180;
-     if(angle>0.001&&angle<=180)
-     {
-      turnangle=-1;
-      if(canturn==1)
-      {
-     transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
-      }
-     }
-
-    if(angle>180&&angle<359.999)
-     {
-      turnangle=1;
-      if(canturn==1)
-      {
-      transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
-      }
-     }
-
-
-     
-    
-    }
-    
-if(y1<0&&x1==0)
-   {
-
-    float s1=1-angle/180;
-float s2=1-(360-angle)/180;
-     if(angle>=0&&angle<179.999)
-     {
-      turnangle=1;
-     if(canturn==1)
-      {
-     transform.Rotate(0,rotateSpeed*s1*Time.deltaTime,0);
-      }
-     
-     }
-   
-    if(angle>180.001&&angle<360)
-     {
-      turnangle=-1;
-       if(canturn==1)
-      {
-      transform.Rotate(0,-rotateSpeed*s2*Time.deltaTime,0);
-      }
-      
-     }
-
-
+//角色冲刺设置
+    if (sprintingTime > -sprintingTimeWait)
+    {
+      sprintingTime = sprintingTime - 1 * Time.deltaTime;
     }
 
-    if(x1<0&&y1==0)
-   {
-    
-    float s1=(angle-270)/90;
-float s2=(angle+90)/180;
-float s3=(270-angle)/180;
-     if(angle>=270.001&&angle<360)
-     {
-         turnangle=-1;
-       if(canturn==1)
+    if (Input.GetKey(KeyCode.R) && sprintingTime <= -sprintingTimeWait)
       {
-     transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
+        sprinting = 1f;
+        sprintingTime = sprintingTimeSet;
       }
-     }
 
-     if(angle>=0&&angle<=90)
-     {
-         turnangle=-1;
-       if(canturn==1)
-      {
-     transform.Rotate(0,-rotateSpeed*s2*Time.deltaTime,0);
-      }
-     }
-   
-    if(angle>90&&angle<269.999)
-     {
-         turnangle=1;
-       if(canturn==1)
-      {
-      transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
-      }
-     }
-
-
+    if (sprintingTime > 0)
+    {
+      Vector3 aaa1 = transform.forward * sprintingSpeed;//构建Z轴方向速度  向量*键盘输入数值及速度参数
+      aaa1.y = transform.GetComponent<Rigidbody>().velocity.y;
+      transform.GetComponent<Rigidbody>().velocity = aaa1;
+    }
+    else
+    {
+      sprinting = 0f;
     }
 
-   if(x1>0&&y1==0)
-   {
-    
-    float s1=(angle-90)/180;
-float s2=(450-angle)/180;
-float s3=(90-angle)/180;
-     if(angle>=90.001&&angle<270)
-     {
-         turnangle=-1;
-     if(canturn==1)
+m_Animator.SetFloat("Sprinting", sprinting);
+
+
+
+    if (catchwall == 0 && backwalk == 0)
+    {
+      if (y1 > 0 && x1 == 0)
       {
-      transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
+        float s1 = angle / 180;
+        float s2 = (360 - angle) / 180;
+        if (angle > 0.001 && angle <= 180)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s1 * Time.deltaTime, 0);
+          }
+        }
+
+        if (angle > 180 && angle < 359.999)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s2 * Time.deltaTime, 0);
+          }
+        }
+
+
+
+
       }
-     }
 
-     if(angle>=270&&angle<360)
-     {
-         turnangle=1;
-       if(canturn==1)
+      if (y1 < 0 && x1 == 0)
       {
-     transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
+
+        float s1 = 1 - angle / 180;
+        float s2 = 1 - (360 - angle) / 180;
+        if (angle >= 0 && angle < 179.999)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s1 * Time.deltaTime, 0);
+          }
+
+        }
+
+        if (angle > 180.001 && angle < 360)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s2 * Time.deltaTime, 0);
+          }
+
+        }
+
+
       }
-     }
-   
-    if(angle>=0&&angle<89.999)
-     {
-         turnangle=1;
-     if(canturn==1)
+
+      if (x1 < 0 && y1 == 0)
       {
-      transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
+
+        float s1 = (angle - 270) / 90;
+        float s2 = (angle + 90) / 180;
+        float s3 = (270 - angle) / 180;
+        if (angle >= 270.001 && angle < 360)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s1 * Time.deltaTime, 0);
+          }
+        }
+
+        if (angle >= 0 && angle <= 90)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s2 * Time.deltaTime, 0);
+          }
+        }
+
+        if (angle > 90 && angle < 269.999)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s3 * Time.deltaTime, 0);
+          }
+        }
+
+
       }
-    
-     }
 
-     /*if(angle>=89.999&&angle<90.001)
-     {
-      transform.Rotate(0,center.GetComponent<camH>().jsensitivityHor*Time.deltaTime,0);
-     }*/
+      if (x1 > 0 && y1 == 0)
+      {
+
+        float s1 = (angle - 90) / 180;
+        float s2 = (450 - angle) / 180;
+        float s3 = (90 - angle) / 180;
+        if (angle >= 90.001 && angle < 270)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s1 * Time.deltaTime, 0);
+          }
+        }
+
+        if (angle >= 270 && angle < 360)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s2 * Time.deltaTime, 0);
+          }
+        }
+
+        if (angle >= 0 && angle < 89.999)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s3 * Time.deltaTime, 0);
+          }
+
+        }
+
+        /*if(angle>=89.999&&angle<90.001)
+        {
+         transform.Rotate(0,center.GetComponent<camH>().jsensitivityHor*Time.deltaTime,0);
+        }*/
 
 
+      }
+
+      if (y1 > 0 && x1 < 0)
+      {
+
+        float s1 = (angle - 315) / 180;
+        float s2 = (45 + angle) / 180;
+        float s3 = (315 - angle) / 180;
+        if (angle >= 315.001 && angle < 360)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s1 * Time.deltaTime, 0);
+          }
+        }
+        if (angle >= 0 && angle < 135)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s2 * Time.deltaTime, 0);
+          }
+        }
+        if (angle >= 135 && angle < 314.999)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s3 * Time.deltaTime, 0);
+          }
+        }
+
+      }
+
+      if (y1 > 0 && x1 > 0)
+      {
+
+        float s1 = (angle - 45) / 180;
+        float s2 = (405 - angle) / 180;
+        float s3 = (45 - angle) / 180;
+        if (angle >= 45.001 && angle < 225)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s1 * Time.deltaTime, 0);
+          }
+        }
+        if (angle >= 225 && angle < 360)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s2 * Time.deltaTime, 0);
+          }
+        }
+        if (angle >= 0 && angle < 44.999)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s3 * Time.deltaTime, 0);
+          }
+        }
+
+      }
+
+      if (y1 < 0 && x1 > 0)
+      {
+
+        float s1 = (angle - 135) / 180;
+        float s2 = (495 - angle) / 180;
+        float s3 = (135 - angle) / 180;
+        if (angle >= 135.001 && angle < 315)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s1 * Time.deltaTime, 0);
+          }
+        }
+        if (angle >= 315 && angle < 360)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s2 * Time.deltaTime, 0);
+          }
+        }
+        if (angle >= 0 && angle < 134.999)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s3 * Time.deltaTime, 0);
+          }
+        }
+
+      }
+
+      if (y1 < 0 && x1 < 0)
+      {
+
+        float s1 = (angle - 225) / 180;
+        float s2 = (135 + angle) / 180;
+        float s3 = (225 - angle) / 180;
+        if (angle >= 225.001 && angle < 360)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s1 * Time.deltaTime, 0);
+          }
+        }
+        if (angle >= 0 && angle < 45)
+        {
+          turnangle = -1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, -rotateSpeed * s2 * Time.deltaTime, 0);
+          }
+        }
+        if (angle >= 45 && angle < 224.999)
+        {
+          turnangle = 1;
+          if (canturn == 1)
+          {
+            transform.Rotate(0, rotateSpeed * s3 * Time.deltaTime, 0);
+          }
+        }
+
+      }
     }
-
-if(y1>0&&x1<0)
-   {
-    
-    float s1=(angle-315)/180;
-float s2=(45+angle)/180;
-float s3=(315-angle)/180;
-     if(angle>=315.001&&angle<360)
-     {
-       turnangle=-1;
-       if(canturn==1)
-      {
-     transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
-     }
-     }
-     if(angle>=0&&angle<135)
-     {
-       turnangle=-1;
-       if(canturn==1)
-      {
-     transform.Rotate(0,-rotateSpeed*s2*Time.deltaTime,0);
-     }
-     }
-    if(angle>=135&&angle<314.999)
-     {
-       turnangle=1;
-       if(canturn==1)
-      {
-      transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
-     }
-     }
-
-    }
-
-if(y1>0&&x1>0)
-   {
-    
-    float s1=(angle-45)/180;
-float s2=(405-angle)/180;
-float s3=(45-angle)/180;
-     if(angle>=45.001&&angle<225)
-     {
-       turnangle=-1;
-       if(canturn==1)
-      {
-     transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
-     }
-     }
-     if(angle>=225&&angle<360)
-     {
-       turnangle=1;
-       if(canturn==1)
-      {
-     transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
-     }
-     }
-    if(angle>=0&&angle<44.999)
-     {
-       turnangle=1;
-       if(canturn==1)
-      {
-      transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
-     }
-     }
-
-    }
-
-if(y1<0&&x1>0)
-   {
-    
-    float s1=(angle-135)/180;
-float s2=(495-angle)/180;
-float s3=(135-angle)/180;
-     if(angle>=135.001&&angle<315)
-     {
-       turnangle=-1;
-       if(canturn==1)
-      {
-     transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
-     }
-     }
-     if(angle>=315&&angle<360)
-     {
-       turnangle=1;
-       if(canturn==1)
-      {
-     transform.Rotate(0,rotateSpeed*s2*Time.deltaTime,0);
-     }
-     }
-    if(angle>=0&&angle<134.999)
-     {
-       turnangle=1;
-       if(canturn==1)
-      {
-      transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
-     }
-     }
-
-    }
-
-if(y1<0&&x1<0)
-   {
-    
-    float s1=(angle-225)/180;
-float s2=(135+angle)/180;
-float s3=(225-angle)/180;
-     if(angle>=225.001&&angle<360)
-     {
-       turnangle=-1;
-       if(canturn==1)
-      {
-     transform.Rotate(0,-rotateSpeed*s1*Time.deltaTime,0);
-     }
-     }
-     if(angle>=0&&angle<45)
-     {
-       turnangle=-1;
-       if(canturn==1)
-      {
-     transform.Rotate(0,-rotateSpeed*s2*Time.deltaTime,0);
-     }
-     }
-    if(angle>=45&&angle<224.999)
-     {
-       turnangle=1;
-       if(canturn==1)
-      {
-      transform.Rotate(0,rotateSpeed*s3*Time.deltaTime,0);
-     }
-     }
-
-    }
-}
 
 /*
   
@@ -1083,7 +1139,7 @@ RaycastHit hit;
     {
       playerHeight=Mathf.Abs(transform.position.y-hit.point.y);
 m_Animator.SetFloat("height", playerHeight);
-if(playerHeight>0.012)
+if(playerHeight>0.1)
      {
       playerHeight=math.clamp(playerHeight,0,2);
       GetComponent<Collider>().material=haveFriction;
@@ -1165,13 +1221,13 @@ RaycastHit hit2;
     
       canClime=0f;
     }
+
+
    
-   
 
 
 
-
-landspeed=transform.GetComponent<Rigidbody>().velocity.y;
+landspeed =transform.GetComponent<Rigidbody>().velocity.y;
 
 
 
@@ -1197,14 +1253,14 @@ public void catchwall1(float k)
 
  transform.GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);
    GetComponent<Rigidbody>().useGravity=false;
- 
+    canturn = 0;
 }
 
 public void nocatchwall1(float k)
 {
 
 GetComponent<Rigidbody>().useGravity=true;
-
+  
 
 }
 

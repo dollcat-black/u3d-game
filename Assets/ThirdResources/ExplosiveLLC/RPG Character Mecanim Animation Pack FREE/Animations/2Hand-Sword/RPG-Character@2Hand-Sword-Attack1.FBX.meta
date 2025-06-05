@@ -1,12 +1,5 @@
 fileFormatVersion: 2
 guid: dce280ced5e006c4cb0eb0fab2f51b75
-AssetOrigin:
-  serializedVersion: 1
-  productId: 65284
-  packageName: RPG Character Mecanim Animation Pack FREE
-  packageVersion: 2.5.2
-  assetPath: Assets/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Animations/2Hand-Sword/RPG-Character@2Hand-Sword-Attack1.FBX
-  uploadId: 586175
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable:
@@ -734,6 +727,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -943,6 +938,13 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
+        messageOptions: 0
+      - time: 0.50312495
+        functionName: weaponsounds
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 1
         messageOptions: 0
       transformMask:
       - path: 

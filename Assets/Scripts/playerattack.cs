@@ -60,7 +60,11 @@ public class playerattack : MonoBehaviour
 
       public float att=0;
 
+      public float weaponsound;
+
 public GameObject weaponpartic;
+
+public int weaponback1=0;
     
 
 
@@ -138,9 +142,9 @@ if(Input.GetKeyUp(KeyCode.G))
 
 
 
-    if(Input.GetKeyUp(KeyCode.Q))
+    if(Input.GetKeyDown(KeyCode.Q))
     {
-    
+    //Debug.Log(2);
     if(weapon.activeSelf==true)
     {
      weaponchange=-1;
@@ -324,6 +328,7 @@ if(combocount<0)
      {
        weaponback.SetActive(false);
        weapon.SetActive(true);
+       weaponback1=1;
        //Debug.Log(1);
      }
 
@@ -331,6 +336,7 @@ if(combocount<0)
      {
        weaponback.SetActive(true);
        weapon.SetActive(false);
+        weaponback1=1;
         //Debug.Log(2);
      }
 
@@ -363,6 +369,11 @@ if(combocount<0)
 public void Changeweaponpartic(int K)
    {
      att=K;
+   }
+
+   public void weaponsounds(int K)
+   {
+     weaponsound=K;
    }
 
 

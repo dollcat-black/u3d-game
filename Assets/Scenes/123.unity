@@ -311,6 +311,8 @@ MonoBehaviour:
   sprintingSpeed: 10
   sprintingTimeWait: 0.5
   sprintingSound: 0
+  crouch: 0
+  crouchisTrue: 0
 --- !u!136 &30420723
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -417,6 +419,20 @@ MonoBehaviour:
   - m_Rig: {fileID: 1889237038}
     m_Active: 0
   m_Effectors: []
+--- !u!114 &30420735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30420715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d6e7645eec2114eb886c31ba1de04f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isknock: 0
+  playerHealth: 100
 --- !u!1 &37275717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,6 +1231,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2112089406245431583, guid: a41ab576c3b016540aed7505ecaf832f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 30420731}
+    - targetCorrespondingSourceObject: {fileID: 2112089406245431583, guid: a41ab576c3b016540aed7505ecaf832f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 30420735}
   m_SourcePrefab: {fileID: 100100000, guid: a41ab576c3b016540aed7505ecaf832f, type: 3}
 --- !u!1 &345556451
 GameObject:
@@ -2143,6 +2162,8 @@ MonoBehaviour:
   sprintingSpeed: 5
   sprintingTimeWait: 2
   sprintingSound: 0
+  crouch: 0
+  crouchisTrue: 0
 --- !u!114 &580791905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2886,6 +2907,8 @@ MonoBehaviour:
   sprintingSpeed: 5
   sprintingTimeWait: 2
   sprintingSound: 0
+  crouch: 0
+  crouchisTrue: 0
 --- !u!114 &761459499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4203,6 +4226,8 @@ MonoBehaviour:
   sprintingSpeed: 5
   sprintingTimeWait: 2
   sprintingSound: 0
+  crouch: 0
+  crouchisTrue: 0
 --- !u!54 &1053611857
 Rigidbody:
   m_ObjectHideFlags: 0

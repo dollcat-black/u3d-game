@@ -11,10 +11,12 @@ public GameObject campo;
 
     public bool isCamVibrate=false;
 
+  public float camVibrateTime=0;
+
      public GameObject playerObject;  //角色
 
      public bool run;
-
+  public bool freezecam=false;
      public float zoomMax=100f;
 public float zoomMin=50;
     
@@ -26,14 +28,20 @@ public float zoomMin=50;
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Input.GetKey(KeyCode.F))
-     {
-        isCamVibrate=true;
-     }
-     else
-     {
-    isCamVibrate=false;
-     }
+    freezecam = playerObject.GetComponent<playermove>().freeze;
+    camVibrateTime -= Time.deltaTime;
+    if (camVibrateTime <=0)
+    {
+      camVibrateTime = 0;
+    }
+        if (Input.GetKey(KeyCode.F) || camVibrateTime > 0)
+      {
+        isCamVibrate = true;
+      }
+      else
+      {
+        isCamVibrate = false;
+      }
        if(isCamVibrate==true)
      {
         
@@ -69,7 +77,7 @@ transform.position=new Vector3(Random.Range(0,2*camV)-camV+campo.GetComponent<Tr
 
 run=playerObject.GetComponent<playermove>().run;
 
-if(run||(Input.GetKey(KeyCode.LeftShift)&&(Input.GetKey(KeyCode.W)||Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.S)||Input.GetKey(KeyCode.D))))
+if((run||(Input.GetKey(KeyCode.LeftShift)&&(Input.GetKey(KeyCode.W)||Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.S)||Input.GetKey(KeyCode.D))))&&freezecam!=true)
 {
     
     GetComponent<Camera>().fieldOfView+=1f;

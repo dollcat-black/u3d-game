@@ -344,7 +344,7 @@ float rotationY = transform.localEulerAngles.y + delta;
     }
 }  */
 
-if(lockb>0.1f&&look==true){
+if(lockb>0.1f&&look==true&&playerObject.GetComponent<playermove>().freeze!=true){
     
     lookY=look.GetComponent<Transform>().position-transform.position;
     lookcen=lookY;

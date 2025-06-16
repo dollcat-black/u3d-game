@@ -585,7 +585,7 @@ if(jk>0.1||jk<-0.1)
 */
 
 
-  if(lockb>0.1f&&look==true)
+  if(lockb>0.1f&&look==true&&playerObject.GetComponent<playermove>().freeze!=true)
         {
         lookX=look.GetComponent<Transform>().position-transform.position;
         //ll=lookX.magnitude;

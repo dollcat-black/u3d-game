@@ -103,6 +103,8 @@ public float roll;
 
   public float crouch = 0f;
   public float crouchisTrue = 0f;
+
+  public bool freeze = false;
 void Awake()
     {
         controls= new Playeraction();
@@ -543,7 +545,7 @@ if(Input.GetKey(KeyCode.LeftShift))
           m_Animator.SetFloat(Const.Speed, movespeed1);
             m_Animator.SetFloat("run", run1);
         
-if(jump==1&&jump1==0)
+if(jump==1&&jump1==0&&freeze!=true)
 {
  
    m_Animator.SetBool("Jump1", true);
@@ -553,7 +555,7 @@ if(jump==1&&jump1==0)
 
 }
   
-  if(jump1==1&&catchwall==0f&&canturn==1)
+  if(jump1==1&&catchwall==0f&&canturn==1&&freeze!=true)
   {
     Vector3 aaa1=transform.forward*(heightSpeed+runSpeed);//构建Z轴方向速度  向量*键盘输入数值及速度参数
     aaa1.y=transform.GetComponent<Rigidbody>().velocity.y;//取消Y轴方向速度，防止影响重力控制
@@ -586,7 +588,7 @@ if(b<0)
 
     //turnangle=0;
 
-    if (y1 < 0 && x1 == 0)
+    if (y1 < 0 && x1 == 0&&freeze!=true)
     {
       if ((angle > 0 && angle < 15) || (angle > 345 && angle < 360))
       {
@@ -654,7 +656,7 @@ if(b<0)
       sprintingTime = sprintingTime - 1 * Time.deltaTime;
     }
 
-    if (Input.GetKey(KeyCode.R) && sprintingTime <= -sprintingTimeWait&&crouchisTrue==0f)
+    if (Input.GetKey(KeyCode.R) && sprintingTime <= -sprintingTimeWait&&crouchisTrue==0f&&freeze!=true)
       {
         sprinting = 1f;
       sprintingSound = 1f;
@@ -678,7 +680,7 @@ m_Animator.SetFloat("Sprinting", sprinting);
 
     if (catchwall == 0 && backwalk == 0)
     {
-      if (y1 > 0 && x1 == 0)
+      if (y1 > 0 && x1 == 0&&freeze!=true)
       {
         float s1 = angle / 180;
         float s2 = (360 - angle) / 180;
@@ -705,7 +707,7 @@ m_Animator.SetFloat("Sprinting", sprinting);
 
       }
 
-      if (y1 < 0 && x1 == 0)
+      if (y1 < 0 && x1 == 0&&freeze!=true)
       {
 
         float s1 = 1 - angle / 180;
@@ -733,7 +735,7 @@ m_Animator.SetFloat("Sprinting", sprinting);
 
       }
 
-      if (x1 < 0 && y1 == 0)
+      if (x1 < 0 && y1 == 0&&freeze!=true)
       {
 
         float s1 = (angle - 270) / 90;
@@ -769,7 +771,7 @@ m_Animator.SetFloat("Sprinting", sprinting);
 
       }
 
-      if (x1 > 0 && y1 == 0)
+      if (x1 > 0 && y1 == 0&&freeze!=true)
       {
 
         float s1 = (angle - 90) / 180;
@@ -811,7 +813,7 @@ m_Animator.SetFloat("Sprinting", sprinting);
 
       }
 
-      if (y1 > 0 && x1 < 0)
+      if (y1 > 0 && x1 < 0&&freeze!=true)
       {
 
         float s1 = (angle - 315) / 180;
@@ -844,7 +846,7 @@ m_Animator.SetFloat("Sprinting", sprinting);
 
       }
 
-      if (y1 > 0 && x1 > 0)
+      if (y1 > 0 && x1 > 0&&freeze!=true)
       {
 
         float s1 = (angle - 45) / 180;
@@ -877,7 +879,7 @@ m_Animator.SetFloat("Sprinting", sprinting);
 
       }
 
-      if (y1 < 0 && x1 > 0)
+      if (y1 < 0 && x1 > 0&&freeze!=true)
       {
 
         float s1 = (angle - 135) / 180;
@@ -910,7 +912,7 @@ m_Animator.SetFloat("Sprinting", sprinting);
 
       }
 
-      if (y1 < 0 && x1 < 0)
+      if (y1 < 0 && x1 < 0&&freeze!=true)
       {
 
         float s1 = (angle - 225) / 180;

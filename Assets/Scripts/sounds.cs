@@ -68,7 +68,7 @@ public class sounds : MonoBehaviour
        GetComponent<AudioSource>().clip = a[1];
       GetComponent<AudioSource>().Play();
       GetComponent<AudioSource>().time=s;
-      Debug.Log(1);
+    
     }
 
 

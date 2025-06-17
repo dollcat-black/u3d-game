@@ -133,7 +133,8 @@ void OnEnable()
     // Update is called once per frame
     void FixedUpdate()
     {
-   x1=move.x;
+      
+   x1 =move.x;
    y1=move.y;
     x2=arrow.x;
    y2=arrow.y;
@@ -412,37 +413,37 @@ if(l<maxCamDistant){
            transform.localEulerAngles = new Vector3(rotationX, rotationY1, rotationZ);
            }
            }
-       
-       /*  
-     //键盘纵向旋转视角
-           if(Input.GetKey(KeyCode.UpArrow)&&!Input.GetKey(KeyCode.E))
-           {
-            
-            if(currentX>minimumVert&&currentX<maximumVert+5)
-          {
-          transform.Rotate(-jsensitivityHor,0,0);
-         //starTime=0.1f;
-         c=1;
-          }
 
-           }
-   //键盘纵向旋转视角
-           if(Input.GetKey(KeyCode.DownArrow)&&!Input.GetKey(KeyCode.E))
-           {
-          
-            if(currentX>minimumVert-5&&currentX<maximumVert) 
-          {
-          transform.Rotate(jsensitivityHor,0,0);
-          c=-1;
-          //starTime=0.1f;
-           }
-           }
+    /*  
+  //键盘纵向旋转视角
+        if(Input.GetKey(KeyCode.UpArrow)&&!Input.GetKey(KeyCode.E))
+        {
+
+         if(currentX>minimumVert&&currentX<maximumVert+5)
+       {
+       transform.Rotate(-jsensitivityHor,0,0);
+      //starTime=0.1f;
+      c=1;
+       }
+
+        }
+//键盘纵向旋转视角
+        if(Input.GetKey(KeyCode.DownArrow)&&!Input.GetKey(KeyCode.E))
+        {
+
+         if(currentX>minimumVert-5&&currentX<maximumVert) 
+       {
+       transform.Rotate(jsensitivityHor,0,0);
+       c=-1;
+       //starTime=0.1f;
+        }
+        }
 */
- 
 
 
-           //停止移动视角后镜头平滑移动
-  //if(Input.GetAxis("Mouse Y")==0&&!Input.GetKey(KeyCode.DownArrow)&&!Input.GetKey(KeyCode.UpArrow)&&starTime>0&&c!=0&&!Input.GetKey(KeyCode.E))
+
+    //停止移动视角后镜头平滑移动
+    //if(Input.GetAxis("Mouse Y")==0&&!Input.GetKey(KeyCode.DownArrow)&&!Input.GetKey(KeyCode.UpArrow)&&starTime>0&&c!=0&&!Input.GetKey(KeyCode.E))
     /*if(Input.GetAxis("Mouse Y")==0&&Input.GetKey(KeyCode.DownArrow)&&Input.GetKey(KeyCode.UpArrow)&&starTime>0&&c!=0&&!Input.GetKey(KeyCode.E)&&!Input.GetMouseButton(0))
        {
           starTime=starTime-0.1f*Time.deltaTime;
@@ -459,132 +460,132 @@ if(l<maxCamDistant){
            }
         }
 */
- 
 
- /*
- if(Input.GetAxis("Mouse Y")==0&&Input.GetKey(KeyCode.DownArrow)&&Input.GetKey(KeyCode.UpArrow)&&starTime>0&&c!=0&&lockb<0.1f&&!Input.GetMouseButton(0))
-       {
-          starTime=starTime-0.1f*Time.deltaTime;
-          rotationX=rotationX-Mathf.Lerp(0, c*jsensitivityHor,starTime);
-            float rotationY1 = centerY.GetComponent<Transform>().localEulerAngles.y;
-            float rotationZ=centerY.GetComponent<Transform>().localEulerAngles.z;
-          if(currentX1>minimumVert&&currentX1<maximumVert)
+
+    /*
+    if(Input.GetAxis("Mouse Y")==0&&Input.GetKey(KeyCode.DownArrow)&&Input.GetKey(KeyCode.UpArrow)&&starTime>0&&c!=0&&lockb<0.1f&&!Input.GetMouseButton(0))
           {
-          centerY.GetComponent<Transform>().localEulerAngles = new Vector3(rotationX, rotationY1, rotationZ);
-          }
-           if(starTime<=0)
-           {
-            starTime=0;
+             starTime=starTime-0.1f*Time.deltaTime;
+             rotationX=rotationX-Mathf.Lerp(0, c*jsensitivityHor,starTime);
+               float rotationY1 = centerY.GetComponent<Transform>().localEulerAngles.y;
+               float rotationZ=centerY.GetComponent<Transform>().localEulerAngles.z;
+             if(currentX1>minimumVert&&currentX1<maximumVert)
+             {
+             centerY.GetComponent<Transform>().localEulerAngles = new Vector3(rotationX, rotationY1, rotationZ);
+             }
+              if(starTime<=0)
+              {
+               starTime=0;
+              }
            }
-        }
 
-           // rotationX = Mathf.Clamp(rotationX, minimumVert, maximumVert); //限制视角上下限
-           // float rotationY = transform.localEulerAngles.y;
-           // transform.localEulerAngles = new Vector3(rotationX, rotationY, z);
-	      
-   */
-    
-//镜头看向方向纵向跟随物体
-   /* if(Input.GetKey(KeyCode.E)&&look==true)
-        {
-        lookX=look.GetComponent<Transform>().position-transform.position;
-        //ll=lookX.magnitude;
-        
-    lookY=lookX;
-   // lookcen=lookX;
-    //lookX.x=0;
-    cam1=transform.forward;
-    cam1.y=0;
-    lookY.y=0;
-    lookRotateY=Vector3.SignedAngle(cam1,lookY,Vector3.up);
-    lookc=transform.forward;
-    //Quaternion rotation1=Quaternion.Euler(-centerY.GetComponent<Transform>().localEulerAngles.x,0,0);
-    //lookc=rotation1*lookc;
-    lookc.x=0;
-    
-    //jj=Vector3.SignedAngle(lookc,new Vector3(0,1,0),Vector3.right);
-    //jz=Vector3.SignedAngle(lookX,new Vector3(0,1,0),Vector3.right);
-    //lookX=look.GetComponent<Transform>().position;
-    //lookc=transform.position;
-    //c=Vector3.SignedAngle(lookc,lookX,Vector3.right);
-   //lookRotateX=jj-jz;
+              // rotationX = Mathf.Clamp(rotationX, minimumVert, maximumVert); //限制视角上下限
+              // float rotationY = transform.localEulerAngles.y;
+              // transform.localEulerAngles = new Vector3(rotationX, rotationY, z);
 
-if(Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.D))
-{
-    if(Input.GetKey(KeyCode.A))
-    {
-    jd=jd-10*Time.deltaTime;
+      */
 
-    if(jd<-jd1)
-    {
-        jd=-jd1;
-    }
-    }
-   if(Input.GetKey(KeyCode.D))
-    {
-    jd=jd+10*Time.deltaTime;
-    if(jd>jd1)
-    {
-        jd=jd1;
-    }
+    //镜头看向方向纵向跟随物体
+    /* if(Input.GetKey(KeyCode.E)&&look==true)
+         {
+         lookX=look.GetComponent<Transform>().position-transform.position;
+         //ll=lookX.magnitude;
 
-    }
-}
-  else
-   {
-if(jd>0.01)
-{
-    jd=jd-10*Time.deltaTime;
-}
- if(jd<-0.01)
+     lookY=lookX;
+    // lookcen=lookX;
+     //lookX.x=0;
+     cam1=transform.forward;
+     cam1.y=0;
+     lookY.y=0;
+     lookRotateY=Vector3.SignedAngle(cam1,lookY,Vector3.up);
+     lookc=transform.forward;
+     //Quaternion rotation1=Quaternion.Euler(-centerY.GetComponent<Transform>().localEulerAngles.x,0,0);
+     //lookc=rotation1*lookc;
+     lookc.x=0;
+
+     //jj=Vector3.SignedAngle(lookc,new Vector3(0,1,0),Vector3.right);
+     //jz=Vector3.SignedAngle(lookX,new Vector3(0,1,0),Vector3.right);
+     //lookX=look.GetComponent<Transform>().position;
+     //lookc=transform.position;
+     //c=Vector3.SignedAngle(lookc,lookX,Vector3.right);
+    //lookRotateX=jj-jz;
+
+ if(Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.D))
  {
-    jd=jd+10*Time.deltaTime;
+     if(Input.GetKey(KeyCode.A))
+     {
+     jd=jd-10*Time.deltaTime;
+
+     if(jd<-jd1)
+     {
+         jd=-jd1;
+     }
+     }
+    if(Input.GetKey(KeyCode.D))
+     {
+     jd=jd+10*Time.deltaTime;
+     if(jd>jd1)
+     {
+         jd=jd1;
+     }
+
+     }
  }
+   else
+    {
+ if(jd>0.01)
+ {
+     jd=jd-10*Time.deltaTime;
+ }
+  if(jd<-0.01)
+  {
+     jd=jd+10*Time.deltaTime;
+  }
 
-//ll=ll/jd1;
-   }
+ //ll=ll/jd1;
+    }
 
 
 
-    Quaternion rotation=Quaternion.Euler(0,-lookRotateY+jd,0);
-    lookX=rotation*lookX;
-      lookcen=lookX;
-      Vector3 loo=lookX;
-      loo.x=0;
-    jj=Vector3.SignedAngle(lookc,new Vector3(0,1,0),Vector3.right);
-    jz=Vector3.SignedAngle(loo,new Vector3(0,1,0),Vector3.right);
-    jk=Vector3.SignedAngle(new Vector3(0,lookc.y,lookc.z),new Vector3(0,lookX.y,lookX.z),Vector3.right);
+     Quaternion rotation=Quaternion.Euler(0,-lookRotateY+jd,0);
+     lookX=rotation*lookX;
+       lookcen=lookX;
+       Vector3 loo=lookX;
+       loo.x=0;
+     jj=Vector3.SignedAngle(lookc,new Vector3(0,1,0),Vector3.right);
+     jz=Vector3.SignedAngle(loo,new Vector3(0,1,0),Vector3.right);
+     jk=Vector3.SignedAngle(new Vector3(0,lookc.y,lookc.z),new Vector3(0,lookX.y,lookX.z),Vector3.right);
 
-if(jk>0.1||jk<-0.1)
-{
-        if(jz>0)
-        {
-            
-            //transform.Rotate(-jk*lookSpeed*Time.deltaTime,0,0);
-       float rotationX2=transform.localEulerAngles.x;
-       rotationX2-=jk*lookSpeed*Time.deltaTime;
-      float rotationY1 = transform.localEulerAngles.y;
-            float rotationZ= transform.localEulerAngles.z;
-      transform.localEulerAngles = new Vector3(rotationX2, rotationY1, rotationZ);
-           
-        }
-        if(jz<0)
-        {
-            float rotationX2=transform.localEulerAngles.x;
-              rotationX2-=-jk*lookSpeed*Time.deltaTime;
-      float rotationY1 = transform.localEulerAngles.y;
-            float rotationZ=transform.localEulerAngles.z;
-     transform.localEulerAngles = new Vector3(rotationX2, rotationY1, rotationZ);
-          
-     
-        }
-      
+ if(jk>0.1||jk<-0.1)
+ {
+         if(jz>0)
+         {
+
+             //transform.Rotate(-jk*lookSpeed*Time.deltaTime,0,0);
+        float rotationX2=transform.localEulerAngles.x;
+        rotationX2-=jk*lookSpeed*Time.deltaTime;
+       float rotationY1 = transform.localEulerAngles.y;
+             float rotationZ= transform.localEulerAngles.z;
+       transform.localEulerAngles = new Vector3(rotationX2, rotationY1, rotationZ);
+
          }
-         
-      }
-*/
+         if(jz<0)
+         {
+             float rotationX2=transform.localEulerAngles.x;
+               rotationX2-=-jk*lookSpeed*Time.deltaTime;
+       float rotationY1 = transform.localEulerAngles.y;
+             float rotationZ=transform.localEulerAngles.z;
+      transform.localEulerAngles = new Vector3(rotationX2, rotationY1, rotationZ);
 
 
+         }
+
+          }
+
+       }
+ */
+
+    look = center.GetComponent<camH>().look;
   if(lockb>0.1f&&look==true&&playerObject.GetComponent<playermove>().freeze!=true)
         {
         lookX=look.GetComponent<Transform>().position-transform.position;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ZD : MonoBehaviour
@@ -25,14 +26,14 @@ VibrateTime=0.2f;
 
     private void OnTriggerEnter(Collider other)
     {
-      if (other.tag == "Player")
-            {
-            if (other.GetComponent<playerDate>().playerHealth > 0)
+        if (other.tag == "Player" && transform.gameObject.tag != "playerBullet")
+        {
+            if (other.GetComponent<playerDate>().playerHealth > 0 && other.GetComponent<playerDate>().knockTime <= 0)
             {
                 MainCam.GetComponent<camVibrate>().camVibrateTime = VibrateTime;
                 Destroy(gameObject);
             }
-            }
+        }
 
 
         if (other.tag == "shootAble" && other.GetComponent<enemy>() == true)
@@ -44,15 +45,26 @@ VibrateTime=0.2f;
 
         if (other.tag == "Player")
         {
+            if (other.GetComponent<playerDate>().knockTime <= 0)
+            {
+                other.GetComponent<playerDate>().isknock = 1f;
+                other.GetComponent<playerDate>().playerHealth -= 10;
+            }
 
-            other.GetComponent<playerDate>().isknock = 1f;
-            other.GetComponent<playerDate>().playerHealth -= 10;
-           
         }
-        if (other.tag != "shootAble" && other.tag != "Player")
+        if (other.tag != "shootAble" && other.tag != "Player" && transform.gameObject.tag != "playerBullet" && transform.gameObject.tag != "Bullet")
+        {
+            Destroy(gameObject);
+        }
+
+        if (other.tag != "bullet" && transform.gameObject.tag != "playerBullet")
+        {
+            Destroy(gameObject);
+        }
+        
+        if (other.tag != "playerBullet" &&  transform.gameObject.tag != "bullet")
         { 
          Destroy(gameObject);
-
         }
         
     }

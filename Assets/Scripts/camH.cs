@@ -6,53 +6,59 @@ using UnityEngine.UIElements;
 
 public class camH : MonoBehaviour
 {
-      
+
     private float _rotationX = 0;
-    public float sensitivityHor=3;//鼠标横向旋转速度系数
-    public float jsensitivityHor=0.5f; //键盘横向旋转速度系数
+    public float sensitivityHor = 3;//鼠标横向旋转速度系数
+    public float jsensitivityHor = 0.5f; //键盘横向旋转速度系数
     public GameObject playerObject;  //角色物体
 
 
 
     public GameObject look;   //看向的物体
-	// Use this for initialization
+                              // Use this for initialization
+                              //public GameObject look1;
+    private float starTime = 0;  //平滑镜头时间
 
-    private float starTime=0;  //平滑镜头时间
-  
     private float delta; //镜头旋转自动分配速度（不修改）
-    private int a=0; //判断移动镜头方向及平滑移动方向
+    private int a = 0; //判断移动镜头方向及平滑移动方向
     private Vector3 centerTOplayerObjectV; //镜头-角色向量
 
     private float distant; //镜头-角色间距离
 
-    public float backspeed=1; //镜头返回角色速度系数
-      public float maxDistant=2;  //镜头跟随角色最远距离
+    public float backspeed = 1; //镜头返回角色速度系数
+    public float maxDistant = 2;  //镜头跟随角色最远距离
 
-      private float a1;  //判断镜头方向与镜头与角色方向向量正反
-      private float c=0; //确认无操作，镜头可以自行平滑移动
+    private float a1;  //判断镜头方向与镜头与角色方向向量正反
+    private float c = 0; //确认无操作，镜头可以自行平滑移动
 
-      private float lookRotateY; //看向物体与镜头在Y轴夹角大小
-      //public float lookRotateX;
+    private float lookRotateY; //看向物体与镜头在Y轴夹角大小
+                               //public float lookRotateX;
 
-      private Vector3 lookY;  //镜头看向物体的向量
+    private Vector3 lookY;  //镜头看向物体的向量
 
-     // public Vector3 lookX;
-      public float lookSpeed=1;  //看向物体速度系数
+    // public Vector3 lookX;
+    public float lookSpeed = 1;  //看向物体速度系数
 
-      public Vector3 lookcen;
-      
-      private Playeraction controls;
-   public float lockb=0;
-public Vector2 move=Vector2.zero;
-public Vector2 arrow=Vector2.zero;
-   public float x1=0;
-   public float y1=0;
+    public Vector3 lookcen;
 
-    public float x2=0;
-   public float y2=0;
-      public float jump=0;
-    
-   void Awake()
+    private Playeraction controls;
+    public float lockb = 0;
+    public Vector2 move = Vector2.zero;
+    public Vector2 arrow = Vector2.zero;
+    public float x1 = 0;
+    public float y1 = 0;
+
+    public float x2 = 0;
+    public float y2 = 0;
+    public float jump = 0;
+
+    public GameObject[] looks;
+
+    public int looksLength;
+
+public float[] lookDistance;
+
+       void Awake()
     {
         controls= new Playeraction();
        // controls.GamePlay.Attack.performed += ctx =>Attack();
@@ -84,13 +90,17 @@ void OnEnable()
 
 
 
-	void Start () {
-       
+    void Start()
+    {
+        looks = GameObject.FindGameObjectsWithTag("shootAble");
+        looksLength = looks.Length;
+        lookDistance = new float[looksLength]; 
 	}
 	
 
 	void FixedUpdate () {
-           x1=move.x;
+        
+           x1 =move.x;
    y1=move.y;
    x2=arrow.x;
    y2=arrow.y;
@@ -320,40 +330,92 @@ float rotationY = transform.localEulerAngles.y + delta;
         float rotationY = transform.localEulerAngles.y + Mathf.Clamp(delta,-5,5);
         transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
         }
-        
-        
+
+
 
 
         /*transform.position=playerObject.GetComponent<Transform>().position;
         float delta = Input.GetAxis("Mouse X") * sensitivityHor;
         float rotationY = transform.localEulerAngles.y + delta;
         transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
-          */   
-            
-      
-     
-     //镜头横向看向物体
-/*if(Input.GetKey(KeyCode.E)&&look==true){
-    
-    lookY=look.GetComponent<Transform>().position-transform.position;
-    lookcen=lookY;
-     lookY.y=0;
-     lookRotateY=Vector3.SignedAngle(transform.forward,lookY,Vector3.up);
-    if(lookRotateY>0.01||lookRotateY<-0.01){
-     transform.Rotate(0,lookRotateY*lookSpeed*Time.deltaTime,0);
-    }
-}  */
+          */
 
-if(lockb>0.1f&&look==true&&playerObject.GetComponent<playermove>().freeze!=true){
+
+
+        //镜头横向看向物体
+        /*if(Input.GetKey(KeyCode.E)&&look==true){
+
+            lookY=look.GetComponent<Transform>().position-transform.position;
+            lookcen=lookY;
+             lookY.y=0;
+             lookRotateY=Vector3.SignedAngle(transform.forward,lookY,Vector3.up);
+            if(lookRotateY>0.01||lookRotateY<-0.01){
+             transform.Rotate(0,lookRotateY*lookSpeed*Time.deltaTime,0);
+            }
+        }  */
+        //lookDistance[0] = 0;
+        //lookDistance[1] = 1;
+         GameObject[] k;
+         k = new GameObject[looksLength];
+        int l = 0;
+            
+            for (int j = 0; j < looksLength; j++)
+            {
+                if (looks[j] != null)
+                {
+                    k[l] = looks[j];
+                    l++;
+                }
+            }
+        looks = k;
+
+
+
+
+        for (int i = 0; i < looksLength; i++)
+        {
+
+            // Debug.Log(lookDistance.Length);
+            //  Debug.Log(i);
+            if (looks[i] != null && looks[0] != null)
+            {
+                lookDistance[i] = (looks[i].GetComponent<Transform>().position - playerObject.GetComponent<Transform>().position).magnitude;
+                if (i > 0)
+                {
+                    if (lookDistance[i] > lookDistance[i - 1])
+                    {
+                        look = looks[i - 1];
+                        Debug.Log(1);
+                    }
+                    else
+                    {
+                        look = looks[i];
+                        Debug.Log(2);
+                    }
+                }
+            }
+            else
+            {
+                look = looks[0];  
+             }
+            
     
-    lookY=look.GetComponent<Transform>().position-transform.position;
-    lookcen=lookY;
-     lookY.y=0;
-     lookRotateY=Vector3.SignedAngle(transform.forward,lookY,Vector3.up);
-    if(lookRotateY>0.01||lookRotateY<-0.01){
-     transform.Rotate(0,lookRotateY*lookSpeed*Time.deltaTime,0);
-    }
-}
+        } 
+        
+//lookDistance=(looks[0].GetComponent<Transform>().position - playerObject.GetComponent<Transform>().position).magnitude;
+            //lookDistance2=(looks[1].GetComponent<Transform>().position - playerObject.GetComponent<Transform>().position).magnitude;
+            if (lockb > 0.1f && look == true && playerObject.GetComponent<playermove>().freeze != true)
+            {
+
+                lookY = look.GetComponent<Transform>().position - transform.position;
+                lookcen = lookY;
+                lookY.y = 0;
+                lookRotateY = Vector3.SignedAngle(transform.forward, lookY, Vector3.up);
+                if (lookRotateY > 0.01 || lookRotateY < -0.01)
+                {
+                    transform.Rotate(0, lookRotateY * lookSpeed * Time.deltaTime, 0);
+                }
+            }
 
     }
 }

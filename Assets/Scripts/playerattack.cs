@@ -71,7 +71,7 @@ public int weaponback1=0;
 void Awake()
     {
         controls= new Playeraction();
-        controls.GamePlay.Attack.performed += ctx =>Attack();
+        //controls.GamePlay.Attack.performed += ctx =>Attack();
         controls.GamePlay.Attack.performed += ctx =>a=ctx.ReadValue<float>();
         controls.GamePlay.Attack.canceled += ctx =>a=0;
 
@@ -109,184 +109,191 @@ void OnEnable()
         
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-   
+  // Update is called once per frame
+  void FixedUpdate()
+  {
+
     //bbb1=transform.GetComponent<Rigidbody>().velocity;
-  
-if(Input.GetKeyUp(KeyCode.G))
-        {
-          if(att==0)
-          {
-            att=1;
-          }
-          else
-          {
-            att=0;
-          }
-        }
-         
-      
 
-  if(att==0)
-        {
-          weaponpartic.GetComponent<ParticleSystem>().Stop();
-        }
-
-          if(att==1)
-        {
-          weaponpartic.GetComponent<ParticleSystem>().Play();
-        }
-
-
-
-
-    if(Input.GetKeyDown(KeyCode.Q))
+    if (Input.GetKeyUp(KeyCode.G))
     {
-    //Debug.Log(2);
-    if(weapon.activeSelf==true)
-    {
-     weaponchange=-1;
-    }
-    else
-    {
-      weaponchange=1;
-    }
-    }
-
-if(weapon.activeSelf==true)
-{
-  
-weapontype=weapontype+1f*Time.deltaTime;
-if(weapontype>1)
-{
-  weapontype=1;
-}
-  
-     if(a==1)
-     {
-      attackanimation=1;
-      GetComponent<playermove>().x1=0;
-      GetComponent<playermove>().y1=0;
-      if(combo<=0)
+      if (att == 0)
       {
-        combo=1;
-        attacktime=1f;
-      }
-
-      if(combo>0&&attacktime>0.1f)
-      {
-        combo=1.1f;
-        attacktime=1f;
-      }
-    
-
-
-
-
-
-     }
-
-     if(a==0)
-     {
-      attackanimation=0;
-  
-     }
-
-     if(GetComponent<playermove>().x1!=0||GetComponent<playermove>().y1!=0)
-     {
-     attackanimation=-5;
-
-     }
-}
-else
-{
-  attackanimation=-5;
-  weapontype=weapontype-1f*Time.deltaTime;
-if(weapontype<0)
-{
-  weapontype=0;
-}
-}
-
-if(weaponchange>0.1)
-{
-  weaponchange=weaponchange-1f*Time.deltaTime;
-}
-if(weaponchange<-0.1)
-{
-  weaponchange=weaponchange+1f*Time.deltaTime;
-}
-
-combo=combo-1f*Time.deltaTime;
-if(combo<0)
-{
-  combo=0f;
-  //combocount=0;
-}
-
-if(combo>0)
-{
-   
-  attacktime=attacktime-2f*Time.deltaTime;
- 
-}
-
-
-     GetComponent<playermove>().m_Animator.SetFloat("weaponchange",weaponchange);
-     GetComponent<playermove>().m_Animator.SetFloat("Attack",attackanimation);
-     GetComponent<playermove>().m_Animator.SetFloat("weapontype",weapontype);
-     GetComponent<playermove>().m_Animator.SetFloat("combo",combo);
-if(combocount>0)
-{
-  if(GetComponent<playermove>().x1!=0||GetComponent<playermove>().y1!=0)
-  {
-    speed=4;
-  }
-  else
-  {
-    speed=2;
-  }
-      Vector3 aaa2=transform.forward*speed;//构建Z轴方向速度  向量*键盘输入数值及速度参数
-    aaa2.y=transform.GetComponent<Rigidbody>().velocity.y;//取消Y轴方向速度，防止影响重力控制
-    transform.GetComponent<Rigidbody>().velocity=aaa2;
-}
-combocount=combocount-2f*Time.deltaTime;
-if(combocount<0)
-{
-  combocount=0;
-}
-     /* if(Input.GetMouseButton(0))
-      {
-        if(attackTime<0)
-        {
-            attackTime=1;
-        po=center.GetComponent<Transform>().position+shootFix+center.GetComponent<Transform>().forward.normalized*2;
-      GameObject obj=Instantiate(ZD,po,center.GetComponent<Transform>().rotation); 
-      GameObject obj1=Instantiate(quad,po,center.GetComponent<Transform>().rotation); 
-     obj1.GetComponent<Transform>().eulerAngles=center.GetComponent<Transform>().eulerAngles;
-     ZDVelocity= campo.GetComponent<Transform>().forward.normalized*ZDspeed;
-      if(lockb>0.1f)
-      {
-     ZDVelocity=center.GetComponent<camH>().lookcen+center.GetComponent<Transform>().position-po;
-     ZDVelocity=ZDVelocity.normalized*ZDspeed;
-    
-      }
-    
-      obj. GetComponent<Rigidbody>().velocity=ZDVelocity;  
+        att = 1;
       }
       else
       {
-        attackTime=attackTime-attackSpeed*Time.deltaTime;
+        att = 0;
       }
     }
-    */
-    attackTime=attackTime-attackSpeed*Time.deltaTime;
-    if(attackTime<=0)
+
+
+
+    if (att == 0)
     {
-      attackTime=0;
+      weaponpartic.GetComponent<ParticleSystem>().Stop();
     }
+
+    if (att == 1)
+    {
+      weaponpartic.GetComponent<ParticleSystem>().Play();
+    }
+
+
+
+
+    if (Input.GetKeyDown(KeyCode.Q))
+    {
+      //Debug.Log(2);
+      if (weapon.activeSelf == true)
+      {
+        weaponchange = -1;
+      }
+      else
+      {
+        weaponchange = 1;
+      }
+    }
+
+    if (weapon.activeSelf == true)
+    {
+
+      weapontype = weapontype + 1f * Time.deltaTime;
+      if (weapontype > 1)
+      {
+        weapontype = 1;
+      }
+
+      if (a == 1)
+      {
+        attackanimation = 1;
+        GetComponent<playermove>().x1 = 0;
+        GetComponent<playermove>().y1 = 0;
+        if (combo <= 0)
+        {
+          combo = 1;
+          attacktime = 1f;
+        }
+
+        if (combo > 0 && attacktime > 0.1f)
+        {
+          combo = 1.1f;
+          attacktime = 1f;
+        }
+
+
+
+
+
+
+      }
+
+      if (a == 0)
+      {
+        attackanimation = 0;
+
+      }
+
+      if (GetComponent<playermove>().x1 != 0 || GetComponent<playermove>().y1 != 0)
+      {
+        attackanimation = -5;
+
+      }
+    }
+    else
+    {
+      attackanimation = -5;
+      weapontype = weapontype - 1f * Time.deltaTime;
+      if (weapontype < 0)
+      {
+        weapontype = 0;
+      }
+    }
+
+    if (weaponchange > 0.1)
+    {
+      weaponchange = weaponchange - 1f * Time.deltaTime;
+    }
+    if (weaponchange < -0.1)
+    {
+      weaponchange = weaponchange + 1f * Time.deltaTime;
+    }
+
+    combo = combo - 1f * Time.deltaTime;
+    if (combo < 0)
+    {
+      combo = 0f;
+      //combocount=0;
+    }
+
+    if (combo > 0)
+    {
+
+      attacktime = attacktime - 2f * Time.deltaTime;
+
+    }
+
+
+    GetComponent<playermove>().m_Animator.SetFloat("weaponchange", weaponchange);
+    GetComponent<playermove>().m_Animator.SetFloat("Attack", attackanimation);
+    GetComponent<playermove>().m_Animator.SetFloat("weapontype", weapontype);
+    GetComponent<playermove>().m_Animator.SetFloat("combo", combo);
+    if (combocount > 0)
+    {
+      if (GetComponent<playermove>().x1 != 0 || GetComponent<playermove>().y1 != 0)
+      {
+        speed = 4;
+      }
+      else
+      {
+        speed = 2;
+      }
+      Vector3 aaa2 = transform.forward * speed;//构建Z轴方向速度  向量*键盘输入数值及速度参数
+      aaa2.y = transform.GetComponent<Rigidbody>().velocity.y;//取消Y轴方向速度，防止影响重力控制
+      transform.GetComponent<Rigidbody>().velocity = aaa2;
+    }
+    combocount = combocount - 2f * Time.deltaTime;
+    if (combocount < 0)
+    {
+      combocount = 0;
+    }
+    /* if(Input.GetMouseButton(0))
+     {
+       if(attackTime<0)
+       {
+           attackTime=1;
+       po=center.GetComponent<Transform>().position+shootFix+center.GetComponent<Transform>().forward.normalized*2;
+     GameObject obj=Instantiate(ZD,po,center.GetComponent<Transform>().rotation); 
+     GameObject obj1=Instantiate(quad,po,center.GetComponent<Transform>().rotation); 
+    obj1.GetComponent<Transform>().eulerAngles=center.GetComponent<Transform>().eulerAngles;
+    ZDVelocity= campo.GetComponent<Transform>().forward.normalized*ZDspeed;
+     if(lockb>0.1f)
+     {
+    ZDVelocity=center.GetComponent<camH>().lookcen+center.GetComponent<Transform>().position-po;
+    ZDVelocity=ZDVelocity.normalized*ZDspeed;
+
+     }
+
+     obj. GetComponent<Rigidbody>().velocity=ZDVelocity;  
+     }
+     else
+     {
+       attackTime=attackTime-attackSpeed*Time.deltaTime;
+     }
+   }
+   */
+    attackTime = attackTime - Time.deltaTime;
+    if (attackTime <= 0)
+    {
+      attackTime = 0;
+    }
+
+    if (a == 1)
+    {
+      Attack();
+
+    }
+
     
    }
 
@@ -294,7 +301,7 @@ if(combocount<0)
    {
         if(attackTime<=0&&weapon.activeSelf==false)
         {
-            attackTime=1;
+            attackTime=attackSpeed;
         po=center.GetComponent<Transform>().position+shootFix+center.GetComponent<Transform>().forward.normalized*2;
       GameObject obj=Instantiate(ZD,po,center.GetComponent<Transform>().rotation); 
       GameObject obj1=Instantiate(quad,po,center.GetComponent<Transform>().rotation); 
@@ -307,15 +314,15 @@ if(combocount<0)
     
       }
         y1=ZDVelocity.y;
-        if(y1<0)
+        /*if(y1<0)
         {
           ZDVelocity=new Vector3(ZDVelocity.x,0,ZDVelocity.z);
-        }
+        }*/
       obj. GetComponent<Rigidbody>().velocity=ZDVelocity;  
       }
       else
       {
-        attackTime=attackTime-attackSpeed*Time.deltaTime;
+        attackTime=attackTime-Time.deltaTime;
       }
     
 

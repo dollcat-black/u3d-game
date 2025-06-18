@@ -31,7 +31,7 @@ VibrateTime=0.2f;
             if (other.GetComponent<playerDate>().playerHealth > 0 && other.GetComponent<playerDate>().knockTime <= 0)
             {
                 MainCam.GetComponent<camVibrate>().camVibrateTime = VibrateTime;
-                Destroy(gameObject);
+
             }
         }
 
@@ -49,21 +49,30 @@ VibrateTime=0.2f;
             {
                 other.GetComponent<playerDate>().isknock = 1f;
                 other.GetComponent<playerDate>().playerHealth -= 10;
+                Destroy(gameObject);
             }
 
         }
-        if (other.tag != "shootAble" && other.tag != "Player" && transform.gameObject.tag != "playerBullet" && transform.gameObject.tag != "Bullet")
+
+
+
+        if (other.tag != "shootAble" && other.tag != "Player" )
         {
             Destroy(gameObject);
         }
 
-        if (other.tag != "bullet" && transform.gameObject.tag != "playerBullet")
+
+        if (other.tag == "playerBullet")
         {
-            Destroy(gameObject);
+
+            if (transform.gameObject.tag == "bullet")
+                Destroy(gameObject);
         }
         
-        if (other.tag != "playerBullet" &&  transform.gameObject.tag != "bullet")
+         if (other.tag =="bullet")
         { 
+
+        if(transform.gameObject.tag=="playerBullet")
          Destroy(gameObject);
         }
         

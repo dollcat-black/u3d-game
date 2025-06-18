@@ -12,8 +12,7 @@ public class camH : MonoBehaviour
     public float jsensitivityHor = 0.5f; //键盘横向旋转速度系数
     public GameObject playerObject;  //角色物体
 
-
-
+    public GameObject mainSystem;
     public GameObject look;   //看向的物体
                               // Use this for initialization
                               //public GameObject look1;
@@ -52,11 +51,7 @@ public class camH : MonoBehaviour
     public float y2 = 0;
     public float jump = 0;
 
-    public GameObject[] looks;
-
-    public int looksLength;
-
-public float[] lookDistance;
+   
 
        void Awake()
     {
@@ -92,9 +87,7 @@ void OnEnable()
 
     void Start()
     {
-        looks = GameObject.FindGameObjectsWithTag("shootAble");
-        looksLength = looks.Length;
-        lookDistance = new float[looksLength]; 
+        mainSystem = GameObject.FindWithTag("mainSystem");
 	}
 	
 
@@ -355,67 +348,25 @@ float rotationY = transform.localEulerAngles.y + delta;
         }  */
         //lookDistance[0] = 0;
         //lookDistance[1] = 1;
-         GameObject[] k;
-         k = new GameObject[looksLength];
-        int l = 0;
-            
-            for (int j = 0; j < looksLength; j++)
-            {
-                if (looks[j] != null)
-                {
-                    k[l] = looks[j];
-                    l++;
-                }
-            }
-        looks = k;
 
 
+        //lookDistance=(looks[0].GetComponent<Transform>().position - playerObject.GetComponent<Transform>().position).magnitude;
+        //lookDistance2=(looks[1].GetComponent<Transform>().position - playerObject.GetComponent<Transform>().position).magnitude;
 
+        look = mainSystem.GetComponent<mainSystem>().look;
 
-        for (int i = 0; i < looksLength; i++)
+        if (lockb > 0.1f && look == true && playerObject.GetComponent<playermove>().freeze != true)
         {
 
-            // Debug.Log(lookDistance.Length);
-            //  Debug.Log(i);
-            if (looks[i] != null && looks[0] != null)
+            lookY = look.GetComponent<Transform>().position - transform.position;
+            lookcen = lookY;
+            lookY.y = 0;
+            lookRotateY = Vector3.SignedAngle(transform.forward, lookY, Vector3.up);
+            if (lookRotateY > 0.01 || lookRotateY < -0.01)
             {
-                lookDistance[i] = (looks[i].GetComponent<Transform>().position - playerObject.GetComponent<Transform>().position).magnitude;
-                if (i > 0)
-                {
-                    if (lookDistance[i] > lookDistance[i - 1])
-                    {
-                        look = looks[i - 1];
-                        Debug.Log(1);
-                    }
-                    else
-                    {
-                        look = looks[i];
-                        Debug.Log(2);
-                    }
-                }
+                transform.Rotate(0, lookRotateY * lookSpeed * Time.deltaTime, 0);
             }
-            else
-            {
-                look = looks[0];  
-             }
-            
-    
-        } 
-        
-//lookDistance=(looks[0].GetComponent<Transform>().position - playerObject.GetComponent<Transform>().position).magnitude;
-            //lookDistance2=(looks[1].GetComponent<Transform>().position - playerObject.GetComponent<Transform>().position).magnitude;
-            if (lockb > 0.1f && look == true && playerObject.GetComponent<playermove>().freeze != true)
-            {
-
-                lookY = look.GetComponent<Transform>().position - transform.position;
-                lookcen = lookY;
-                lookY.y = 0;
-                lookRotateY = Vector3.SignedAngle(transform.forward, lookY, Vector3.up);
-                if (lookRotateY > 0.01 || lookRotateY < -0.01)
-                {
-                    transform.Rotate(0, lookRotateY * lookSpeed * Time.deltaTime, 0);
-                }
-            }
+        }
 
     }
 }

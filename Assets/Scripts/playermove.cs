@@ -44,7 +44,17 @@ private Playeraction controls;
 
    public float jump1=0;
 
-public float run1=0;
+  public float jump2 = 0;
+
+  public float jumpNum = 1;
+
+  public float jumNumSet = 1;
+
+  public float jump2time;
+
+  public float jump2timeSet=0.1f;
+
+public float run1 = 0;
 
 public float roll;
   public float roll1;
@@ -139,9 +149,11 @@ void OnEnable()
 
 
 
-    void Start()
-    {
-        canturn=1;
+  void Start()
+  {
+    canturn = 1;
+    jumpNum = jumNumSet;
+    jump2time = jump2timeSet;
     }
 
    
@@ -544,23 +556,63 @@ if(Input.GetKey(KeyCode.LeftShift))
             m_Animator.SetBool(Const.Moving, moving);
           m_Animator.SetFloat(Const.Speed, movespeed1);
             m_Animator.SetFloat("run", run1);
-        
-if(jump==1&&jump1==0&&freeze!=true)
-{
- 
-   m_Animator.SetBool("Jump1", true);
-    Vector3 aaa=transform.up*(jumpHeight+runSpeed);
-      transform.GetComponent<Rigidbody>().velocity=new Vector3(transform.GetComponent<Rigidbody>().velocity.x,aaa.y,transform.GetComponent<Rigidbody>().velocity.z);//将速度向量赋予刚体
-     
 
-}
+    if (jump == 1 && jump1 == 0 && freeze != true)
+    {
+
+      m_Animator.SetBool("Jump1", true);
+      Vector3 aaa = transform.up * (jumpHeight + runSpeed);
+      transform.GetComponent<Rigidbody>().velocity = new Vector3(transform.GetComponent<Rigidbody>().velocity.x, aaa.y, transform.GetComponent<Rigidbody>().velocity.z);//将速度向量赋予刚体
+jump2time = jump2timeSet;
+    }
+
+    
+    jump2time -= Time.deltaTime;
+    if (jump2time <= 0)
+    {
+      jump2time = 0;
+      jump2 = 0;
+    }
+
+    if (jump2 == 1)
+    {
+      if (jump2time <= 0)
+      { 
+         m_Animator.SetFloat("jumpNum", jumpNum);
+      }
+    }
+   
+    m_Animator.SetFloat("jump2", jump2);
+    m_Animator.SetFloat("jump2time", jump2time);
+    
+    if (Input.GetKeyDown(KeyCode.Space) && jump1 == 1 && jump2 < 1 && jumpNum > 0&&jump2time<=0)
+    {
+      Vector3 aaa = transform.up * (jumpHeight + runSpeed);
+      jump2 = 1;
+      transform.GetComponent<Rigidbody>().velocity = new Vector3(transform.GetComponent<Rigidbody>().velocity.x, aaa.y, transform.GetComponent<Rigidbody>().velocity.z);
+      m_Animator.SetFloat("jump2", jump2);
+      jumpNum -= 1;
+      jump2time = jump2timeSet;
+    }
+
+    if (jump1 == 0)
+    {
+      //jump2 = 0;
+      jumpNum = jumNumSet;
+      jump2 = 0;
+      //m_Animator.SetFloat("jump2", jump2);
+      m_Animator.SetFloat("jumpNum", jumpNum);
+      m_Animator.SetFloat("jump2", jump2);
+      
+    }
+    
   
-  if(jump1==1&&catchwall==0f&&canturn==1&&freeze!=true)
-  {
-    Vector3 aaa1=transform.forward*(heightSpeed+runSpeed);//构建Z轴方向速度  向量*键盘输入数值及速度参数
-    aaa1.y=transform.GetComponent<Rigidbody>().velocity.y;//取消Y轴方向速度，防止影响重力控制
-    transform.GetComponent<Rigidbody>().velocity=aaa1;//将速度向量赋予刚体
-   }
+  if (jump1 == 1 && catchwall == 0f && canturn == 1 && freeze != true)
+      {
+        Vector3 aaa1 = transform.forward * (heightSpeed + runSpeed);//构建Z轴方向速度  向量*键盘输入数值及速度参数
+        aaa1.y = transform.GetComponent<Rigidbody>().velocity.y;//取消Y轴方向速度，防止影响重力控制
+        transform.GetComponent<Rigidbody>().velocity = aaa1;//将速度向量赋予刚体
+      }
  
 
 
@@ -1150,12 +1202,12 @@ m_Animator.SetFloat("height", playerHeight);
 if(playerHeight>0.1)
      {
       playerHeight=math.clamp(playerHeight,0,2);
-      GetComponent<Collider>().material=haveFriction;
+      GetComponent<Collider>().material=noFriction;
       jump1=1;
      }
     else
     {
-      GetComponent<Collider>().material=noFriction;
+      GetComponent<Collider>().material=haveFriction;
         jump1=0;
     }
   

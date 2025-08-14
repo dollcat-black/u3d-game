@@ -115,7 +115,10 @@ public float roll;
   public float crouchisTrue = 0f;
 
   public bool freeze = false;
-void Awake()
+
+  public GameObject moveTable;
+
+  void Awake()
     {
         controls= new Playeraction();
        // controls.GamePlay.Attack.performed += ctx =>Attack();
@@ -1195,29 +1198,45 @@ float s3=(225-angle)/180;
 
 //判断角色是否地面，切换物理摩擦材质
 RaycastHit hit;
-    if(Physics.Raycast(transform.position,Vector3.down,out hit))
+    if (Physics.Raycast(transform.position, Vector3.down, out hit))
     {
-      playerHeight=Mathf.Abs(transform.position.y-hit.point.y);
-m_Animator.SetFloat("height", playerHeight);
-if(playerHeight>0.1)
-     {
-      playerHeight=math.clamp(playerHeight,0,2);
-      GetComponent<Collider>().material=noFriction;
-      jump1=1;
-     }
-    else
-    {
-      GetComponent<Collider>().material=haveFriction;
-        jump1=0;
-    }
-  
-    }
-    else
-    {
-      playerHeight=2f;
-      GetComponent<Collider>().material=haveFriction;
-      jump1=1;
+      playerHeight = Mathf.Abs(transform.position.y - hit.point.y);
       m_Animator.SetFloat("height", playerHeight);
+      if (playerHeight > 0.1)
+      {
+        playerHeight = math.clamp(playerHeight, 0, 2);
+        GetComponent<Collider>().material = noFriction;
+        jump1 = 1;
+      }
+      else
+      {
+        GetComponent<Collider>().material = haveFriction;
+        jump1 = 0;
+      }
+//移动物体检测
+      if (hit.transform.tag == "moveTable"&&playerHeight<0.1f)
+      {
+        Debug.Log(1);
+        moveTable = hit.collider.gameObject;
+
+      }
+      else
+      {
+        moveTable = null;
+      }
+
+
+
+
+    }
+    else
+    {
+      playerHeight = 2f;
+      GetComponent<Collider>().material = haveFriction;
+      jump1 = 1;
+      m_Animator.SetFloat("height", playerHeight);
+      
+      moveTable = null;
     }
 
 

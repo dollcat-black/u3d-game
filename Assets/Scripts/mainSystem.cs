@@ -15,6 +15,8 @@ public class mainSystem : MonoBehaviour
 
     public GameObject sq;
 
+    public GameObject moveTable;
+
 public float[] lookDistance;
     // Start is called before the first frame update
     void Awake()
@@ -49,7 +51,7 @@ public float[] lookDistance;
 
         for (int i = 0; i < looksLength; i++)
         {
-           
+
             // Debug.Log(lookDistance.Length);
             //  Debug.Log(i);
             if (looks[i] == null && looks[maxNum] != null)
@@ -59,30 +61,45 @@ public float[] lookDistance;
 
 
             if (looks[i] != null && looks[maxNum] != null)
+            {
+                lookDistance[i] = (looks[i].GetComponent<Transform>().position - playerObject.GetComponent<Transform>().position).magnitude;
+                if (i > 0)
                 {
-                    lookDistance[i] = (looks[i].GetComponent<Transform>().position - playerObject.GetComponent<Transform>().position).magnitude;
-                    if (i > 0)
+                    if (lookDistance[i] > lookDistance[maxNum])
                     {
-                        if (lookDistance[i] > lookDistance[maxNum])
-                        {
-                            look = looks[maxNum];
-                           // Debug.Log(1);
-                        }
-                        else
-                        {
-                            look = looks[i];
-                            maxNum = i;
-                            //Debug.Log(2);
-                        }
+                        look = looks[maxNum];
+                        // Debug.Log(1);
+                    }
+                    else
+                    {
+                        look = looks[i];
+                        maxNum = i;
+                        //Debug.Log(2);
                     }
                 }
-            
-            
+            }
+
+
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
             GameObject obj = Instantiate(sq, playerObject.GetComponent<Transform>().position + playerObject.GetComponent<Transform>().up.normalized * 4, GetComponent<Transform>().rotation);
         }
+
+
+        moveTable = playerObject.GetComponent<playermove>().moveTable;
+        if (moveTable!=null)
+        {
+            playerObject.transform.parent = moveTable.transform;
+            ///Debug.Log(1);
+            
+        }
+        if (moveTable==null)
+        {
+            playerObject.transform.parent = null;
+           // Debug.Log(2);
+        }
+       
 
     }
 }
